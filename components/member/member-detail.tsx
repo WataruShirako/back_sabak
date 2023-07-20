@@ -98,7 +98,7 @@ const MemberDetail = ({
         {userId === profile.id && (
           <div className="bg-sky-500 text-white rounded-full px-5 py-2 text-sm font-bold">
             {tab === 'post' ? (
-              <Link href="post/new">新規投稿</Link>
+              <Link href="/post/new">新規投稿</Link>
             ) : tab === 'membership' ? (
               <Link href="membership/new">新規メンバーシップ</Link>
             ) : (
