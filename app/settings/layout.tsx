@@ -1,41 +1,63 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import {
   UserCircleIcon,
   EnvelopeIcon,
   KeyIcon,
+  CreditCardIcon,
   ArrowLeftOnRectangleIcon,
+  ComputerDesktopIcon,
 } from '@heroicons/react/24/outline';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-
-// ナビゲーション
-const subNavigation = [
-  {
-    name: 'プロフィール',
-    icon: UserCircleIcon,
-    href: '/settings/profile',
-  },
-  {
-    name: 'メールアドレス',
-    icon: EnvelopeIcon,
-    href: '/settings/email',
-  },
-  {
-    name: 'パスワード',
-    icon: KeyIcon,
-    href: '/settings/password',
-  },
-  {
-    name: 'ログアウト',
-    icon: ArrowLeftOnRectangleIcon,
-    href: '/settings/logout',
-  },
-];
+import useStore from '@/store';
 
 // レイアウト
 const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
+  const { user } = useStore();
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    if (user.id) {
+      setUserId(user.id);
+    }
+  }, [user]);
+
+  // ナビゲーション
+  const subNavigation = [
+    {
+      name: 'プロフィール',
+      icon: UserCircleIcon,
+      href: '/settings/profile',
+    },
+    {
+      name: 'マイページ',
+      icon: ComputerDesktopIcon,
+      href: userId ? `/member/${userId}` : '/',
+    },
+    {
+      name: 'メールアドレス',
+      icon: EnvelopeIcon,
+      href: '/settings/email',
+    },
+    {
+      name: 'パスワード',
+      icon: KeyIcon,
+      href: '/settings/password',
+    },
+    {
+      name: 'カスタマーポータル',
+      icon: CreditCardIcon,
+      href: '/settings/customer-portal',
+    },
+    {
+      name: 'ログアウト',
+      icon: ArrowLeftOnRectangleIcon,
+      href: '/settings/logout',
+    },
+  ];
 
   return (
     <div className="grid grid-cols-3 gap-3">

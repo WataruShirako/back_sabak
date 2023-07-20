@@ -1,11 +1,16 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import PostItem from '@/components/post/post-item';
+import { SubscriptionType } from '@/components/types';
+import PostDetail from '@/components/post/post-detail';
 import type { Database } from '@/lib/database.types';
-import type { SubscriptionType } from '@/components/types';
+type PageProps = {
+  params: {
+    postId: string;
+  };
+};
 
-// メインページ
-const Home = async () => {
+// 投稿詳細ページ
+const PostDetailPage = async ({ params }: PageProps) => {
   const supabase = createServerComponentClient<Database>({
     cookies,
   });
@@ -19,10 +24,11 @@ const Home = async () => {
   const { data: postData } = await supabase
     .from('posts')
     .select('*, profiles(name, avatar_url), memberships(title)')
-    .order('created_at', { ascending: false });
+    .eq('id', params.postId)
+    .single();
 
   // 投稿がない場合
-  if (!postData || postData.length === 0) {
+  if (!postData) {
     return <div className="text-center">投稿はありません</div>;
   }
 
@@ -37,23 +43,17 @@ const Home = async () => {
     subscriptions = subscriptionData;
   }
 
-  return (
-    <div>
-      {postData.map((post, index) => {
-        // サブスクリプションの判定
-        const isSubscriber =
-          post.membership_id === null || session?.user.id === post.profile_id
-            ? true
-            : subscriptions!.some(
-                (item) =>
-                  item.membership_id === post.membership_id &&
-                  new Date(item.current_period_end!) >= new Date()
-              );
+  // サブスクリプションの判定
+  const isSubscriber =
+    postData.membership_id === null || session?.user.id === postData.profile_id
+      ? true
+      : subscriptions!.some(
+          (item) =>
+            item.membership_id === postData.membership_id &&
+            new Date(item.current_period_end!) >= new Date()
+        );
 
-        return <PostItem key={index} post={post} isSubscriber={isSubscriber} />;
-      })}
-    </div>
-  );
+  return <PostDetail post={postData} isSubscriber={isSubscriber} />;
 };
 
-export default Home;
+export default PostDetailPage;

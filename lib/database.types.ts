@@ -34,33 +34,174 @@ export interface Database {
   }
   public: {
     Tables: {
+      memberships: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          image_url: string | null
+          price: number
+          price_id: string
+          profile_id: string
+          title: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          price: number
+          price_id: string
+          profile_id: string
+          title: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          price?: number
+          price_id?: string
+          profile_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "memberships_profile_id_fkey"
+            columns: ["profile_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      posts: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          image_url: string | null
+          membership_id: string | null
+          profile_id: string
+          title: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          membership_id?: string | null
+          profile_id: string
+          title: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          membership_id?: string | null
+          profile_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_membership_id_fkey"
+            columns: ["membership_id"]
+            referencedRelation: "memberships"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "posts_profile_id_fkey"
+            columns: ["profile_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
+          customer_id: string | null
           email: string
           id: string
+          inserted_at: string | null
           introduce: string | null
+          is_complete: boolean | null
           name: string | null
+          priority: string | null
+          task: string | null
         }
         Insert: {
           avatar_url?: string | null
+          customer_id?: string | null
           email: string
           id: string
+          inserted_at?: string | null
           introduce?: string | null
+          is_complete?: boolean | null
           name?: string | null
+          priority?: string | null
+          task?: string | null
         }
         Update: {
           avatar_url?: string | null
+          customer_id?: string | null
           email?: string
           id?: string
+          inserted_at?: string | null
           introduce?: string | null
+          is_complete?: boolean | null
           name?: string | null
+          priority?: string | null
+          task?: string | null
         }
         Relationships: [
           {
             foreignKeyName: "profiles_id_fkey"
             columns: ["id"]
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      subscriptions: {
+        Row: {
+          created_at: string
+          current_period_end: string | null
+          customer_id: string
+          membership_id: string
+          price_id: string
+          profile_id: string
+          subscription_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_period_end?: string | null
+          customer_id: string
+          membership_id: string
+          price_id: string
+          profile_id: string
+          subscription_id: string
+        }
+        Update: {
+          created_at?: string
+          current_period_end?: string | null
+          customer_id?: string
+          membership_id?: string
+          price_id?: string
+          profile_id?: string
+          subscription_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_membership_id_fkey"
+            columns: ["membership_id"]
+            referencedRelation: "memberships"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_profile_id_fkey"
+            columns: ["profile_id"]
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           }
         ]

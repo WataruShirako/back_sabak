@@ -25,6 +25,11 @@ const Navigation = ({
       name: session && profile ? profile.name : '',
       introduce: session && profile ? profile.introduce : '',
       avatar_url: session && profile ? profile.avatar_url : '',
+      customer_id: session && profile ? profile.customer_id : '',
+      inserted_at: null,
+      is_complete: null,
+      priority: null,
+      task: null,
     });
   }, [session, setUser, profile]);
 
