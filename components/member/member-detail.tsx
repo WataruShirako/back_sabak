@@ -100,7 +100,7 @@ const MemberDetail = ({
             {tab === 'post' ? (
               <Link href="/post/new">新規投稿</Link>
             ) : tab === 'membership' ? (
-              <Link href="membership/new">新規メンバーシップ</Link>
+              <Link href="/membership/new">新規メンバーシップ</Link>
             ) : (
               <></>
             )}
