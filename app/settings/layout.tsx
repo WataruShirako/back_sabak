@@ -66,8 +66,8 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
           <Link href={item.href} key={index}>
             <div
               className={`${
-                item.href == pathname && 'bg-sky-100 text-sky-500'
-              } hover:bg-sky-100 px-3 py-2 rounded-full`}
+                item.href == pathname && 'bg-gray-100 dark:bg-gray-900 text-slate-700'
+              } hover:bg-gray-100 dark:hover:bg-gray-900 px-3 py-2 rounded-sm`}
             >
               <item.icon className="inline-block w-5 h-5 mr-2" />
               {item.name}

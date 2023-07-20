@@ -150,7 +150,7 @@ const PostNew = ({ memberships }: { memberships: MembershipType[] | null }) => {
           <div className="text-sm mb-1 font-bold">タイトル</div>
           <input
             type="text"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary"
             placeholder="タイトル"
             id="title"
             {...register('title', { required: true })}
@@ -163,7 +163,7 @@ const PostNew = ({ memberships }: { memberships: MembershipType[] | null }) => {
         <div className="mb-5">
           <div className="text-sm mb-1 font-bold">内容</div>
           <textarea
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary"
             placeholder="内容"
             id="content"
             {...register('content', { required: true })}
@@ -181,7 +181,7 @@ const PostNew = ({ memberships }: { memberships: MembershipType[] | null }) => {
             render={({ field }) => (
               <select
                 {...field}
-                className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+                className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary"
               >
                 <option value="">公開</option>
                 {memberships &&
@@ -203,7 +203,7 @@ const PostNew = ({ memberships }: { memberships: MembershipType[] | null }) => {
           ) : (
             <button
               type="submit"
-              className="font-bold bg-sky-500 hover:brightness-95 w-full rounded-full p-2 text-white text-sm"
+              className="font-bold bg-primary hover:brightness-95 w-full rounded-lg p-2 text-sm"
             >
               投稿
             </button>

@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import type { Session } from '@supabase/auth-helpers-nextjs';
 import type { Database } from '@/lib/database.types';
+import Button from '@mui/material/Button';
+import Logo from './logo';
 type ProfileType = Database['public']['Tables']['profiles']['Row'];
 
 const Navigation = ({
@@ -34,10 +36,10 @@ const Navigation = ({
   }, [session, setUser, profile]);
 
   return (
-    <header className="shadow-lg shadow-gray-100">
-      <div className="py-5 container max-w-screen-sm mx-auto flex items-center justify-between">
+    <header className="border-scale-300 border-b backdrop-blur-sm transition-opacity false">
+      <div className="p-5 container mx-auto flex items-center justify-between">
         <Link href="/" className="font-bold text-xl cursor-pointer">
-          Sabak
+          <Logo />
         </Link>
 
         <div className="text-sm font-bold">
@@ -56,7 +58,14 @@ const Navigation = ({
             </div>
           ) : (
             <div className="flex items-center space-x-5">
-              <Link href="/auth/login">ログイン</Link>
+              <Link href="/auth/login" className={'block'}>
+                <Button
+                  variant="contained"
+                  className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border dark:border-brand-fixed-1000 dark:hover:border-brand-fixed-1000  shadow-sm text-xs px-2.5 py-1 hidden text-white lg:block bg-green-900"
+                >
+                  ログイン
+                </Button>
+              </Link>
               <Link href="/auth/signup">サインアップ</Link>
             </div>
           )}

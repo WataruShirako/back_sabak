@@ -57,7 +57,7 @@ const MemberDetail = ({
         </div>
         <div>
           <div
-            className="bg-red-500 text-white rounded-full px-5 py-2 text-sm font-bold cursor-pointer"
+            className="bg-red-500 text-slate-200 rounded-lg px-5 py-2 text-sm font-bold cursor-pointer"
             onClick={() => setTab('membership')}
           >
             メンバーになる
@@ -74,8 +74,8 @@ const MemberDetail = ({
           <div className="mr-2">
             <div
               className={`${
-                tab === 'post' && 'text-sky-500 font-bold'
-              } flex p-4 border-b-2 border-transparent hover:border-sky-500 cursor-pointer`}
+                tab === 'post' && 'text-primary font-bold'
+              } flex p-4 border-b-2 border-transparent hover:border-primary cursor-pointer`}
               onClick={() => setTab('post')}
             >
               <DocumentTextIcon className="w-5 h-5 mr-2" />
@@ -85,8 +85,8 @@ const MemberDetail = ({
           <div className="mr-2">
             <div
               className={`${
-                tab === 'membership' && 'text-sky-500 font-bold'
-              } flex p-4 border-b-2 border-transparent hover:border-sky-500 cursor-pointer`}
+                tab === 'membership' && 'text-sprimary font-bold'
+              } flex p-4 border-b-2 border-transparent hover:border-primary cursor-pointer`}
               onClick={() => setTab('membership')}
             >
               <UserGroupIcon className="w-5 h-5 mr-2" />
@@ -96,7 +96,7 @@ const MemberDetail = ({
         </div>
 
         {userId === profile.id && (
-          <div className="bg-sky-500 text-white rounded-full px-5 py-2 text-sm font-bold">
+          <div className="bg-primary text-slate-200 rounded-lg px-5 py-2 text-sm font-bold">
             {tab === 'post' ? (
               <Link href="/post/new">新規投稿</Link>
             ) : tab === 'membership' ? (

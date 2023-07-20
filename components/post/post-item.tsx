@@ -35,7 +35,7 @@ const PostItem = ({ post, isSubscriber }: { post: PostWithProfileType; isSubscri
       </Link>
 
       <Link href={`/post/${post.id}`} className={'block'}>
-        <div className="border rounded-lg shadow-lg shadow-gray-100">
+        <div className="border  rounded-lg shadow-lg">
           <div className="relative w-full h-[350px]">
             <Image
               src={

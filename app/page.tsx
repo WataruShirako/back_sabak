@@ -38,7 +38,7 @@ const Home = async () => {
   }
 
   return (
-    <div>
+    <div className="grid-cols-12">
       {postData.map((post, index) => {
         // サブスクリプションの判定
         const isSubscriber =

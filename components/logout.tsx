@@ -5,6 +5,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import Loading from '@/app/loading';
 import type { Database } from '@/lib/database.types';
+import { Button } from '@mui/material';
 
 // ログアウト
 const Logout = () => {
@@ -49,7 +50,7 @@ const Logout = () => {
           ) : (
             <button
               type="submit"
-              className="font-bold bg-red-500 hover:brightness-95 w-full rounded-full p-2 text-white text-sm"
+              className="font-bold hover:brightness-95 w-full p-2 text-sm bg-primary text-slate-100 rounded-lg"
             >
               ログアウト
             </button>

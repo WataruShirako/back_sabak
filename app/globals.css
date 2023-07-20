@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --background: #f7f8f9;
+  --foreground: #1c1c1c;
+}
+
+[data-theme='dark'] {
+  --background: #1c1c1c;
+  --foreground: #f7f8f9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#__next,
+.main,
+body,
+html {
+  padding: 0;
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ダークモード共通で効かせる設定 */
+.dark * {
+  border-color: #1f1e1d;
+  color: #f1f3f5;
+}
+
+.dark input,
+.dark textarea {
+  background: #1d1e1f;
+}

@@ -18,7 +18,7 @@ const MembershipItem = ({
   const { user } = useStore();
 
   return (
-    <div className="border rounded-lg shadow-lg shadow-gray-100">
+    <div className="border rounded-lg shadow-lg ">
       <div className="relative w-full h-[150px] mb-5">
         <Image
           src={membership.image_url ? membership.image_url : '/noimage.png'}

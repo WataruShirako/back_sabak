@@ -61,7 +61,7 @@ const CustomerPortal = () => {
           <Loading />
         ) : (
           <div
-            className="text-center cursor-pointer font-bold bg-sky-500 hover:brightness-95 w-full rounded-full p-2 text-white text-sm"
+            className="text-center cursor-pointer font-bold bg-primary text-slate-100 hover:brightness-95 w-full rounded-lg p-2 text-sm"
             onClick={openCustomerPortal}
           >
             カスタマーポータルを開く
