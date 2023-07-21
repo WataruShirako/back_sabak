@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color: #11181c;
+  --background: #f7f8f9;
+  --foreground: #1c1c1c;
+  --border-color: #e6e7eb;
+}
+
+.dark {
+  --color: #ededed;
+  --background: #1c1c1c;
+  --foreground: #f7f8f9;
+  --border-color: #2e2e2e;
+}
+
+body {
+  color: var(--color);
+  background: var(--background);
+  transition: all 10ms ease;
+}
+
+/* ライトモードのテーマ */
+.light * {
+  border-color: #e6e7eb;
+  transition-delay: 0ms;
+}
+
+/* ダークモードのテーマ */
+.dark * {
+  border-color: #2e2e2e;
+}
+
+.light input,
+.light textarea {
+  background: #fbfcfd;
+}
+
+.dark input,
+.dark textarea {
+  background: #232323;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#__next,
+.main,
+body,
+html {
+  padding: 0;
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
