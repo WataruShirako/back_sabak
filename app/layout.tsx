@@ -21,19 +21,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html suppressHydrationWarning>
       <body className={`${notoSansJp.className} ${montserrat.className}`}>
-        <StyledEngineProvider injectFirst>
-          <Providers>
+        <Providers>
+          <StyledEngineProvider injectFirst>
             <div className="flex flex-col min-h-screen">
               <SupabaseListener />
-
-              <main className="flex-1 container max-w-screen-sm mx-auto px-1 py-5">{children}</main>
-              <footer className="py-5">
-                <div className="text-center text-sm">Copyright © All rights reserved | Sabak</div>
-                <ThemeButton />
-              </footer>
+              <main className="flex-1 p-5 pt-20 lg:px-0">{children}</main>
             </div>
-          </Providers>
-        </StyledEngineProvider>
+          </StyledEngineProvider>
+        </Providers>
       </body>
     </html>
   );

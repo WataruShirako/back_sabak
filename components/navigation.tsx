@@ -36,7 +36,7 @@ const Navigation = ({
   }, [session, setUser, profile]);
 
   return (
-    <header className="border-scale-300 border-b backdrop-blur-sm transition-opacity false">
+    <header className="border-scale-300 border-b backdrop-blur-sm transition-opacity fixed  w-full z-50">
       <div className="p-5 container mx-auto flex items-center justify-between">
         <Link href="/" className="font-bold text-xl cursor-pointer">
           <Logo />

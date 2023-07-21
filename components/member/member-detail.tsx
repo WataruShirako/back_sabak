@@ -40,7 +40,7 @@ const MemberDetail = ({
   }, [user]);
 
   return (
-    <div>
+    <div className={'max-w-screen-lg m-auto p-5'}>
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center space-x-5">
           <div className="relative w-20 h-20">
@@ -85,7 +85,7 @@ const MemberDetail = ({
           <div className="mr-2">
             <div
               className={`${
-                tab === 'membership' && 'text-sprimary font-bold'
+                tab === 'membership' && 'text-primary font-bold'
               } flex p-4 border-b-2 border-transparent hover:border-primary cursor-pointer`}
               onClick={() => setTab('membership')}
             >

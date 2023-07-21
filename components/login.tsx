@@ -71,24 +71,24 @@ const Login = () => {
         <div className="mb-3">
           <input
             type="email"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-30"
             placeholder="メールアドレス"
             id="email"
             {...register('email', { required: true })}
           />
-          <div className="my-3 text-center text-sm text-red-500">{errors.email?.message}</div>
+          <div className="my-3 text-center text-sm !text-red-500">{errors.email?.message}</div>
         </div>
 
         {/* パスワード */}
         <div className="mb-5">
           <input
             type="password"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-30"
             placeholder="パスワード"
             id="password"
             {...register('password', { required: true })}
           />
-          <div className="my-3 text-center text-sm text-red-500">{errors.password?.message}</div>
+          <div className="my-3 text-center text-sm !text-red-500">{errors.password?.message}</div>
         </div>
 
         {/* ログインボタン */}
@@ -106,7 +106,7 @@ const Login = () => {
         </div>
       </form>
 
-      {message && <div className="my-5 text-center text-sm text-red-500">{message}</div>}
+      {message && <div className="my-5 text-center text-sm !text-red-500">{message}</div>}
 
       <div className="text-center text-sm mb-5">
         <Link href="/auth/reset-password" className="text-gray-500 font-bold">

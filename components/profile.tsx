@@ -153,7 +153,7 @@ const Profile = () => {
               <Image src={avatarUrl} className="rounded-full object-cover" alt="avatar" fill />
             </div>
             <input type="file" id="avatar" onChange={onUploadImage} />
-            {fileMessage && <div className="text-center text-red-500 my-5">{fileMessage}</div>}
+            {fileMessage && <div className="text-center !text-red-500 my-5">{fileMessage}</div>}
           </div>
         </div>
 
@@ -162,20 +162,20 @@ const Profile = () => {
           <div className="text-sm mb-1 font-bold">名前</div>
           <input
             type="text"
-            className="border rounded-lg w-full py-2 px-3 focus:outline-none focus:border-primary"
+            className="border rounded-lg w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
             placeholder="名前"
             id="name"
             {...register('name', { required: true })}
             required
           />
-          <div className="my-3 text-center text-sm text-red-500">{errors.name?.message}</div>
+          <div className="my-3 text-center text-sm !text-red-500">{errors.name?.message}</div>
         </div>
 
         {/* 自己紹介 */}
         <div className="mb-5">
           <div className="text-sm mb-1 font-bold">自己紹介</div>
           <textarea
-            className="border rounded-lg w-full py-2 px-3 focus:outline-none focus:border-primary"
+            className="border rounded-lg w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-30"
             placeholder="自己紹介"
             id="introduce"
             {...register('introduce')}
@@ -199,7 +199,7 @@ const Profile = () => {
       </form>
 
       {/* メッセージ */}
-      {message && <div className="my-5 text-center text-red-500 mb-5">{message}</div>}
+      {message && <div className="my-5 text-center !text-red-500 mb-5">{message}</div>}
     </div>
   );
 };

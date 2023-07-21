@@ -12,6 +12,7 @@ import {
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import useStore from '@/store';
+import ThemeButton from '@/components/ThemeButton';
 
 // レイアウト
 const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
@@ -60,22 +61,23 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   return (
-    <div className="grid grid-cols-3 gap-3">
-      <div className="col-span-1 text-sm space-y-1 font-bold flex flex-col">
+    <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-3 overflow-hidden">
+      <div className="col-span-2 text-sm space-y-1 font-semibold hidden lg:flex fixed flex-col p-4 border-r h-screen overflow-y-hidden">
         {subNavigation.map((item, index) => (
           <Link href={item.href} key={index}>
             <div
               className={`${
-                item.href == pathname && 'bg-gray-100 dark:bg-gray-900 text-slate-700'
-              } hover:bg-gray-100 dark:hover:bg-gray-900 px-3 py-2 rounded-sm`}
+                item.href == pathname && 'bg-gray-100 dark:bg-transparent text-slate-900'
+              } hover:bg-gray-200 dark:hover:bg-gray-800 px-3 py-2 rounded-sm`}
             >
               <item.icon className="inline-block w-5 h-5 mr-2" />
               {item.name}
             </div>
           </Link>
         ))}
+        <ThemeButton />
       </div>
-      <div className="col-span-2">{children}</div>
+      <div className="lg:col-start-5 lg:col-end-11 flex flex-col mt-5">{children}</div>
     </div>
   );
 };

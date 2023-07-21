@@ -88,12 +88,12 @@ const Email = ({ email }: { email: string }) => {
           <div className="text-sm mb-1 font-bold">新しいメールアドレス</div>
           <input
             type="email"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-30"
             placeholder="新しいメールアドレス"
             id="email"
             {...register('email', { required: true })}
           />
-          <div className="my-3 text-center text-sm text-red-500">{errors.email?.message}</div>
+          <div className="my-3 text-center text-sm !text-red-500">{errors.email?.message}</div>
         </div>
 
         {/* 変更ボタン */}
@@ -111,7 +111,7 @@ const Email = ({ email }: { email: string }) => {
         </div>
       </form>
 
-      {message && <div className="my-5 text-center text-sm text-red-500">{message}</div>}
+      {message && <div className="my-5 text-center text-sm !text-red-500">{message}</div>}
     </div>
   );
 };
