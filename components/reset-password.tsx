@@ -69,7 +69,7 @@ const ResetPassword = () => {
           <div className="text-sm mb-1 font-bold">メールアドレス</div>
           <input
             type="email"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
             placeholder="メールアドレス"
             id="email"
             {...register('email', { required: true })}

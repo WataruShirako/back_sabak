@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import useStore from '@/store';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { Session } from '@supabase/auth-helpers-nextjs';
 import type { Database } from '@/lib/database.types';
 import Button from '@mui/material/Button';
 import Logo from './logo';
+import { Backdrop } from '@mui/material';
 type ProfileType = Database['public']['Tables']['profiles']['Row'];
 
 const Navigation = ({
@@ -35,6 +36,14 @@ const Navigation = ({
     });
   }, [session, setUser, profile]);
 
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <header className="border-scale-300 border-b backdrop-blur-sm transition-opacity fixed  w-full z-50">
       <div className="p-5 container mx-auto flex items-center justify-between">
@@ -55,13 +64,30 @@ const Navigation = ({
                   />
                 </div>
               </Link>
+              <div className="relative w-10 h-10 grid place-items-center rounded cursor-pointer bg-gray-600 dark:bg-gray-800">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
+                  />
+                </svg>
+              </div>
             </div>
           ) : (
             <div className="flex items-center space-x-5">
               <Link href="/auth/login" className={'block'}>
                 <Button
                   variant="contained"
-                  className="relative justify-center cursor-pointer items-center space-x-2 text-center ease-out duration-200 rounded-md outline-none transition-all outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 border dark:border-brand-fixed-1000 dark:hover:border-brand-fixed-1000  shadow-sm text-xs px-2.5 py-1 hidden text-white lg:block bg-green-900"
+                  disableElevation
+                  className="justify-center items-center space-x-4 text-center rounded-md transition-all dark:border-green-700 dark:hover:border-green-900 shadow-sm text-xs px-4 py-2 hidden text-white lg:block bg-primary hover:bg-green-900 hover:brightness-90"
                 >
                   ログイン
                 </Button>

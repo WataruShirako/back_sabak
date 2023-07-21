@@ -62,7 +62,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-3 overflow-hidden">
-      <div className="col-span-2 text-sm space-y-1 font-semibold hidden lg:flex fixed flex-col p-4 border-r h-screen overflow-y-hidden">
+      <div className="col-span-2 text-sm space-y-1 font-semibold hidden lg:flex fixed flex-col p-4 border-r h-[calc(100vh_-_80px)] overflow-y-hidden">
         {subNavigation.map((item, index) => (
           <Link href={item.href} key={index}>
             <div
@@ -75,7 +75,9 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
           </Link>
         ))}
-        <ThemeButton />
+        <div className={'!mt-auto'}>
+          <ThemeButton />
+        </div>
       </div>
       <div className="lg:col-start-5 lg:col-end-11 flex flex-col mt-5">{children}</div>
     </div>

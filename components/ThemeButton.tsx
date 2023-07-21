@@ -5,6 +5,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 import { useEffect, useState } from 'react';
+import { Switch } from '@mui/material';
 export default function ThemeButton() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -19,15 +20,12 @@ export default function ThemeButton() {
   if (!mounted) return null;
 
   return (
-    <div>
-      The current theme is: {theme}
-      <button className="block p-1 bg-black dark:bg-white rounded-full" onClick={handleSetTheme}>
-        {theme === 'light' ? (
-          <DarkModeIcon className="w-5 h-5 text-white" />
-        ) : (
-          <LightModeIcon className="w-5 h-5 text-black" />
-        )}
-      </button>
+    <div className="flex justify-start items-center gap-2">
+      <div className="flex items-center p-2">
+        <LightModeIcon className="w-5 h-5 dark:text-white text-primary" />
+        <Switch onClick={handleSetTheme} color="default" />
+        <DarkModeIcon className="w-5 h-5 dark:text-primary text-slate-1000" />
+      </div>
     </div>
   );
 }

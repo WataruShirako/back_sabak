@@ -64,16 +64,15 @@ const Home = async () => {
 
   return (
     <>
-      <div className="fixed bottom-4 left-4 bg-gray-400 dark:bg-gray-900 p-5 rounded-lg z-50">
+      <div className="fixed bottom-4 left-4 bg-green-800 p-2 rounded-lg z-50 shadow-sm">
         {topNavigation.map((item, index) => (
           <Link href={item.href} key={index}>
-            <div className={` hover:bg-gray-200 dark:hover:bg-gray-800 px-3 py-2 rounded-sm`}>
+            <div className={` hover:bg-green-700 px-4 py-3 rounded-lg text-gray-100 font-semibold`}>
               <item.icon className="inline-block w-5 h-5 mr-2" />
               {item.name}
             </div>
           </Link>
         ))}
-        <ThemeButton />
       </div>
       <div className="col-1 max-w-screen-lg m-auto">
         {postData.map((post, index) => {

@@ -91,7 +91,7 @@ const Signup = () => {
         <div className="mb-3">
           <input
             type="text"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary  placeholder:opacity-50"
             placeholder="名前"
             id="name"
             {...register('name', { required: true })}
@@ -103,7 +103,7 @@ const Signup = () => {
         <div className="mb-3">
           <input
             type="email"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary  placeholder:opacity-50"
             placeholder="メールアドレス"
             id="email"
             {...register('email', { required: true })}
@@ -115,7 +115,7 @@ const Signup = () => {
         <div className="mb-5">
           <input
             type="password"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary  placeholder:opacity-50"
             placeholder="パスワード"
             id="password"
             {...register('password', { required: true })}

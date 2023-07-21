@@ -71,7 +71,7 @@ const Login = () => {
         <div className="mb-3">
           <input
             type="email"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-30"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary dark:placeholder:opacity-40"
             placeholder="メールアドレス"
             id="email"
             {...register('email', { required: true })}
@@ -83,7 +83,7 @@ const Login = () => {
         <div className="mb-5">
           <input
             type="password"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-30"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary dark:placeholder:opacity-40"
             placeholder="パスワード"
             id="password"
             {...register('password', { required: true })}
@@ -109,13 +109,13 @@ const Login = () => {
       {message && <div className="my-5 text-center text-sm !text-red-500">{message}</div>}
 
       <div className="text-center text-sm mb-5">
-        <Link href="/auth/reset-password" className="text-gray-500 font-bold">
+        <Link href="/auth/reset-password" className="text-gray-800 dark:text-gray-700 font-bold">
           パスワードを忘れた方はこちら
         </Link>
       </div>
 
       <div className="text-center text-sm">
-        <Link href="/auth/signup" className="text-gray-500 font-bold">
+        <Link href="/auth/signup" className="text-gray-800 dark:text-gray-700 font-bold">
           アカウントを作成する
         </Link>
       </div>
