@@ -22,13 +22,13 @@ body {
   transition: all 10ms ease;
 }
 
-/* ライトモードのテーマ */
+/* ライトモードのテーマ。 */
 .light * {
   border-color: #e6e7eb;
   transition-delay: 0ms;
 }
 
-/* ダークモードのテーマ */
+/* ダークモードのテーマ。 */
 .dark * {
   border-color: #2e2e2e;
 }
