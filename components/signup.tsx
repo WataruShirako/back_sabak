@@ -91,7 +91,7 @@ const Signup = () => {
         <div className="mb-3">
           <input
             type="text"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary"
             placeholder="名前"
             id="name"
             {...register('name', { required: true })}
@@ -103,7 +103,7 @@ const Signup = () => {
         <div className="mb-3">
           <input
             type="email"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary"
             placeholder="メールアドレス"
             id="email"
             {...register('email', { required: true })}
@@ -115,7 +115,7 @@ const Signup = () => {
         <div className="mb-5">
           <input
             type="password"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary"
             placeholder="パスワード"
             id="password"
             {...register('password', { required: true })}
@@ -130,7 +130,7 @@ const Signup = () => {
           ) : (
             <button
               type="submit"
-              className="font-bold bg-sky-500 hover:brightness-95 w-full rounded-full p-2 text-white text-sm"
+              className="font-bold bg-primary hover:brightness-95 w-full rounded-lg p-2 text-white text-sm"
             >
               サインアップ
             </button>
