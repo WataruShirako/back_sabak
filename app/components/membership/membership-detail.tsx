@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { MembershipType } from '@/components/types';
+import { MembershipType } from '@/app/components/types';
 import axios from 'axios';
 import useStore from '@/store';
-import MembershipItem from '@/components/membership/membership-item';
+import MembershipItem from '@/app/components/membership/membership-item';
 
 // メンバーシップ詳細
 const MembershipDetail = ({

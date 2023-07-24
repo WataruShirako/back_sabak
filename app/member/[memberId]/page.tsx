@@ -1,7 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import { SubscriptionType } from '@/components/types';
-import MemberDetail from '@/components/member/member-detail';
+import { SubscriptionType } from '@/app/components/types';
+import MemberDetail from '@/app/components/member/member-detail';
 import type { Database } from '@/lib/database.types';
 type PageProps = {
   params: {

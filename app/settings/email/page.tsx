@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { redirect } from 'next/navigation';
-import Email from '@/components/email';
+import Email from '@/app/components/email';
 import type { Database } from '@/lib/database.types';
 
 // メールアドレス変更ページ

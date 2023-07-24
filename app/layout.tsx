@@ -2,15 +2,15 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { Noto_Sans_JP } from 'next/font/google';
-import SupabaseListener from '../components/supabase-listener';
+import SupabaseListener from './components/supabase-listener';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
 
 import { StyledEngineProvider } from '@mui/material/styles';
 
-import Providers from '../components/Providers';
-import ThemeButton from '../components/ThemeButton';
+import Providers from './components/Providers';
+import ThemeButton from './components/ThemeButton';
 
 export const metadata: Metadata = {
   title: 'sabak',

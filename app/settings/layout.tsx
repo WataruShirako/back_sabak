@@ -12,7 +12,7 @@ import {
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import useStore from '@/store';
-import ThemeButton from '@/components/ThemeButton';
+import ThemeButton from '@/app/components/ThemeButton';
 
 // レイアウト
 const SettingsLayout = ({ children }: { children: React.ReactNode }) => {

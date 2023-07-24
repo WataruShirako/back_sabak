@@ -1,7 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import MembershipNew from '@/components/membership/membership-new';
+import MembershipNew from '@/app/components/membership/membership-new';
 import type { Database } from '@/lib/database.types';
 
 // 新規メンバーシップページ

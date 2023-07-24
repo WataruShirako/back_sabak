@@ -1,19 +1,13 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import PostItem from '@/components/post/post-item';
+import PostItem from '@/app/components/post/post-item';
 import type { Database } from '@/lib/database.types';
-import type { SubscriptionType } from '@/components/types';
+import type { SubscriptionType } from '@/app/components/types';
 import Link from 'next/link';
-import {
-  ArrowLeftOnRectangleIcon,
-  ComputerDesktopIcon,
-  CreditCardIcon,
-  EnvelopeIcon,
-  KeyIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
-import ThemeButton from '@/components/ThemeButton';
-import { usePathname } from 'next/navigation';
+import { ComputerDesktopIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import Landing from '@/app/components/Landing';
+import TodoList from './components/TodoList';
+import AddTask from './components/AddTask';
 
 // メインページ
 const Home = async () => {
@@ -64,30 +58,47 @@ const Home = async () => {
 
   return (
     <>
-      <div className="fixed bottom-4 left-4 bg-green-800 p-2 rounded-lg z-50 shadow-sm">
-        {topNavigation.map((item, index) => (
-          <Link href={item.href} key={index}>
-            <div className={` hover:bg-green-700 px-4 py-3 rounded-lg text-gray-100 font-semibold`}>
-              <item.icon className="inline-block w-5 h-5 mr-2" />
-              {item.name}
-            </div>
-          </Link>
-        ))}
-      </div>
+      {!session ? null : (
+        <div className="fixed bottom-4 left-4 bg-green-800 p-2 rounded-lg z-50 shadow-sm">
+          {topNavigation.map((item, index) => (
+            <Link href={item.href} key={index}>
+              <div
+                className={`hover:bg-green-700 px-4 py-3 rounded-lg text-gray-100 font-semibold`}
+              >
+                <item.icon className="inline-block w-5 h-5 mr-2" />
+                {item.name}
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
       <div className="col-1 max-w-screen-lg m-auto">
-        {postData.map((post, index) => {
-          // サブスクリプションの判定
-          const isSubscriber =
-            post.membership_id === null || session?.user.id === post.profile_id
-              ? true
-              : subscriptions!.some(
-                  (item) =>
-                    item.membership_id === post.membership_id &&
-                    new Date(item.current_period_end!) >= new Date()
-                );
+        {!session ? (
+          <Landing />
+        ) : (
+          // (
+          //   postData.map((post, index) => {
+          //     const isSubscriber =
+          //       post.membership_id === null || session.user.id === post.profile_id
+          //         ? true
+          //         : subscriptions!.some(
+          //             (item) =>
+          //               item.membership_id === post.membership_id &&
+          //               new Date(item.current_period_end!) >= new Date()
+          //           );
 
-          return <PostItem key={index} post={post} isSubscriber={isSubscriber} />;
-        })}
+          //     return (
+          //       <>
+          //         <PostItem key={index} post={post} isSubscriber={isSubscriber} />
+          //       </>
+          //     );
+          //   })
+          // )
+          <>
+            <AddTask />
+            <TodoList />
+          </>
+        )}
       </div>
     </>
   );

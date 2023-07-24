@@ -7,11 +7,11 @@ import {
   ProfileType,
   SubscriptionType,
   MembershipType,
-} from '@/components/types';
+} from '@/app/components/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import PostItem from '@/components/post/post-item';
-import MembershipDetail from '@/components/membership/membership-detail';
+import PostItem from '@/app/components/post/post-item';
+import MembershipDetail from '@/app/components/membership/membership-detail';
 import useStore from '@/store';
 
 // メンバー詳細

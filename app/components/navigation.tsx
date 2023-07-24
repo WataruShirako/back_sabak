@@ -92,7 +92,7 @@ const Navigation = ({
                   ログイン
                 </Button>
               </Link>
-              <Link href="/auth/signup">サインアップ</Link>
+              <Link href="/auth/signup">新規登録</Link>
             </div>
           )}
         </div>

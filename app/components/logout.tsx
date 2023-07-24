@@ -44,16 +44,17 @@ const Logout = () => {
       <div className="text-center mb-5">ログアウトしますか？</div>
       {/* ログアウトボタン */}
       <form onSubmit={onSubmit}>
-        <div className="mb-5">
+        <div className="mb-5  text-center mx-auto">
           {loading ? (
             <Loading />
           ) : (
-            <button
+            <Button
+              variant="contained"
               type="submit"
-              className="font-bold hover:brightness-95 w-full p-2 text-sm bg-primary text-slate-100 rounded-lg"
+              className="font-bold hover:brightness-95 hover:bg-green-900 w-full p-2 text-sm bg-primary text-slate-100 rounded-lg"
             >
               ログアウト
-            </button>
+            </Button>
           )}
         </div>
       </form>

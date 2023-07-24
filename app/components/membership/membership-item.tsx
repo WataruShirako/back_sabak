@@ -1,6 +1,6 @@
 'use client';
 
-import { MembershipType } from '@/components/types';
+import { MembershipType } from '@/app/components/types';
 import Image from 'next/image';
 import Loading from '@/app/loading';
 import useStore from '@/store';

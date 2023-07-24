@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Loading from '@/app/loading';
 import * as z from 'zod';
 import type { Database } from '@/lib/database.types';
+import { Button } from '@mui/material';
 type Schema = z.infer<typeof schema>;
 
 // 入力データの検証ルールを定義
@@ -92,16 +93,16 @@ const Login = () => {
         </div>
 
         {/* ログインボタン */}
-        <div className="mb-5">
+        <div className="mb-5 text-center mx-auto">
           {loading ? (
             <Loading />
           ) : (
-            <button
+            <Button
               type="submit"
-              className="font-bold bg-primary text-slate-100 hover:brightness-95 w-full rounded-lg p-2 text-sm"
+              className="font-bold bg-primary disableElevation hover:bg-green-900 hover:brightness-90 w-72 m-auto text-slate-100"
             >
               ログイン
-            </button>
+            </Button>
           )}
         </div>
       </form>

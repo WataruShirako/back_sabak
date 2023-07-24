@@ -1,7 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import PostNew from '@/components/post/post-new';
+import PostNew from '@/app/components/post/post-new';
 import type { Database } from '@/lib/database.types';
 
 // 新規投稿ページ

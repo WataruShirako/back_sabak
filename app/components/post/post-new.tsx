@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MembershipType } from '@/components/types';
+import { MembershipType } from '@/app/components/types';
 import Loading from '@/app/loading';
 import * as z from 'zod';
 import useStore from '@/store';
