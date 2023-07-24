@@ -99,7 +99,8 @@ const Login = () => {
           ) : (
             <Button
               type="submit"
-              className="font-bold bg-primary disableElevation hover:bg-green-900 hover:brightness-90 w-72 m-auto text-slate-100"
+              disableElevation
+              className="font-bold bg-primary hover:bg-green-900 hover:brightness-90 w-72 m-auto text-slate-100"
             >
               ログイン
             </Button>

@@ -6,8 +6,8 @@ import type { SubscriptionType } from '@/app/components/types';
 import Link from 'next/link';
 import { ComputerDesktopIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import Landing from '@/app/components/Landing';
-import TodoList from './components/TodoList';
-import AddTask from './components/AddTask';
+import TaskItem from '@/app/components/task/task-item';
+import TaskNew from '@/app/components/task/task-new';
 
 // メインページ
 const Home = async () => {
@@ -58,7 +58,7 @@ const Home = async () => {
 
   return (
     <>
-      {!session ? null : (
+      {/* {!session ? null : (
         <div className="fixed bottom-4 left-4 bg-green-800 p-2 rounded-lg z-50 shadow-sm">
           {topNavigation.map((item, index) => (
             <Link href={item.href} key={index}>
@@ -71,7 +71,7 @@ const Home = async () => {
             </Link>
           ))}
         </div>
-      )}
+      )} */}
       <div className="col-1 max-w-screen-lg m-auto">
         {!session ? (
           <Landing />
@@ -95,8 +95,8 @@ const Home = async () => {
           //   })
           // )
           <>
-            <AddTask />
-            <TodoList />
+            <TaskNew />
+            <TaskItem />
           </>
         )}
       </div>

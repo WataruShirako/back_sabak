@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Loading from '@/app/loading';
 import * as z from 'zod';
 import type { Database } from '@/lib/database.types';
+import ThemeButton from './ThemeButton';
 type Schema = z.infer<typeof schema>;
 
 // 入力データの検証ルールを定義
@@ -91,7 +92,7 @@ const Signup = () => {
         <div className="mb-3">
           <input
             type="text"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary  placeholder:opacity-50"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary dark:placeholder:opacity-40"
             placeholder="名前"
             id="name"
             {...register('name', { required: true })}
@@ -103,7 +104,7 @@ const Signup = () => {
         <div className="mb-3">
           <input
             type="email"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary  placeholder:opacity-50"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary dark:placeholder:opacity-40"
             placeholder="メールアドレス"
             id="email"
             {...register('email', { required: true })}
@@ -115,7 +116,7 @@ const Signup = () => {
         <div className="mb-5">
           <input
             type="password"
-            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary  placeholder:opacity-50"
+            className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary dark:placeholder:opacity-40"
             placeholder="パスワード"
             id="password"
             {...register('password', { required: true })}
@@ -141,7 +142,7 @@ const Signup = () => {
       {message && <div className="my-5 text-center text-sm text-red-500">{message}</div>}
 
       <div className="text-center text-sm">
-        <Link href="/auth/login" className="text-gray-500 font-bold">
+        <Link href="/auth/login" className="text-gray-900 font-bold">
           ログインはこちら
         </Link>
       </div>

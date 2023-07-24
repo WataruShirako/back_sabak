@@ -3,7 +3,7 @@
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-const TodoList = () => {
+const TaskItem = () => {
   const [todos, setTodos] = useState([]);
 
   // useEffect(() => {
@@ -32,4 +32,4 @@ const TodoList = () => {
   );
 };
 
-export default TodoList;
+export default TaskItem;
