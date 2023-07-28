@@ -7,22 +7,26 @@ import {
   ProfileType,
   SubscriptionType,
   MembershipType,
+  PostWithTaskType,
 } from '@/app/components/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import PostItem from '@/app/components/post/post-item';
 import MembershipDetail from '@/app/components/membership/membership-detail';
 import useStore from '@/store';
+import TaskItem from '../task/task-item';
 
 // メンバー詳細
 const MemberDetail = ({
   posts,
+  tasks,
   memberId,
   memberships,
   profile,
   subscriptions,
 }: {
   posts: PostWithProfileType[] | null;
+  tasks: PostWithTaskType[] | null;
   memberId: string;
   memberships: MembershipType[] | null;
   profile: ProfileType;
@@ -93,6 +97,17 @@ const MemberDetail = ({
               メンバーシップ
             </div>
           </div>
+          <div className="mr-2">
+            <div
+              className={`${
+                tab === 'task' && 'text-primary font-bold'
+              } flex p-4 border-b-2 border-transparent hover:border-primary cursor-pointer`}
+              onClick={() => setTab('task')}
+            >
+              <UserGroupIcon className="w-5 h-5 mr-2" />
+              新規タスク
+            </div>
+          </div>
         </div>
 
         {userId === profile.id && (
@@ -101,6 +116,8 @@ const MemberDetail = ({
               <Link href="/post/new">新規投稿</Link>
             ) : tab === 'membership' ? (
               <Link href="/membership/new">新規メンバーシップ</Link>
+            ) : tab === 'task' ? (
+              <Link href="/tasks/new">新規タスク</Link>
             ) : (
               <></>
             )}
@@ -131,6 +148,18 @@ const MemberDetail = ({
         </div>
       ) : tab === 'membership' ? (
         <MembershipDetail memberships={memberships} memberId={memberId} />
+      ) : tab === 'task' ? (
+        <div>
+          {tasks && tasks.length !== 0 ? (
+            <div>
+              {tasks.map((task, index) => {
+                return <TaskItem key={index} task={task} />;
+              })}
+            </div>
+          ) : (
+            <div className="text-center">投稿はありません</div>
+          )}
+        </div>
       ) : (
         <></>
       )}

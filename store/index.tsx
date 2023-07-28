@@ -18,10 +18,7 @@ const useStore = create<StateType>((set) => ({
     introduce: '',
     avatar_url: '',
     customer_id: '',
-    inserted_at: '',
-    is_complete: false,
-    priority: '',
-    task: '',
+    team: '',
   },
   // アップデート
   setUser: (payload) => set({ user: payload }),

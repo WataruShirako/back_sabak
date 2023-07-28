@@ -33,6 +33,7 @@ const Navigation = ({
       is_complete: null,
       priority: null,
       task: null,
+      team: null,
     });
   }, [session, setUser, profile]);
 

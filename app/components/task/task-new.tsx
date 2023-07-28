@@ -18,16 +18,14 @@ type Schema = z.infer<typeof schema>;
 const schema = z.object({
   title: z.string().min(2, { message: '2文字以上入力する必要があります。' }),
   content: z.string().min(2, { message: '2文字以上入力する必要があります。' }),
-  membership: z.string(),
 });
 
 const TaskNew = () => {
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
   const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState<File | null>(null);
   const [message, setMessage] = useState('');
-  const [fileMessage, setFileMessage] = useState('');
+
   const { user } = useStore();
 
   const {
@@ -40,82 +38,30 @@ const TaskNew = () => {
     defaultValues: {
       title: '',
       content: '',
-      membership: '',
+      member: '',
+      category: '',
     },
     // 入力値の検証
     resolver: zodResolver(schema),
   });
 
-  // 画像アップロード
-  const onUploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    setFileMessage('');
-
-    // ファイルが選択されていない場合
-    if (!files || files?.length == 0) {
-      setFileMessage('画像をアップロードしてください。');
-      return;
-    }
-
-    const fileSize = files[0]?.size / 1024 / 1024; // size in MB
-    const fileType = files[0]?.type; // MIME type of the file
-
-    // 画像サイズが2MBを超える場合
-    if (fileSize > 2) {
-      setFileMessage('画像サイズを2MB以下にする必要があります。');
-      return;
-    }
-
-    // ファイル形式がjpgまたはpngでない場合
-    if (fileType !== 'image/jpeg' && fileType !== 'image/png') {
-      setFileMessage('画像はjpgまたはpng形式である必要があります。');
-      return;
-    }
-
-    // 画像をセット
-    setImage(files[0]);
-  }, []);
-
   // 送信
   const onSubmit: SubmitHandler<Schema> = async (data) => {
     setLoading(true);
-    setMessage('');
+    setMessage('ロード中...');
 
     try {
       // ユーザーIDが取得できない場合、処理を終了
       if (!user.id) {
+        console.log('ユーザーIDがありません');
         return;
       }
 
-      let image_url = '';
-
-      if (image) {
-        // supabaseストレージに画像アップロード
-        const { data: storageData, error: storageError } = await supabase.storage
-          .from('posts')
-          .upload(`${user.id}/${uuidv4()}`, image);
-
-        // エラーチェック
-        if (storageError) {
-          setMessage('画像アップロードにエラーが発生しました。' + storageError.message);
-          return;
-        }
-
-        // 画像のURLを取得
-        const { data: urlData } = await supabase.storage
-          .from('posts')
-          .getPublicUrl(storageData.path);
-
-        image_url = urlData.publicUrl;
-      }
-
       // 新規投稿
-      const { error: insertError } = await supabase.from('posts').insert({
-        profile_id: user.id,
+      const { error: insertError } = await supabase.from('todos').insert({
+        user_id: user.id,
         title: data.title,
         content: data.content,
-        membership_id: data.membership ? data.membership : null,
-        image_url,
       });
 
       // エラーチェック
@@ -130,23 +76,39 @@ const TaskNew = () => {
       return;
     } finally {
       setLoading(false);
+      console.log('送信成功');
       router.refresh();
     }
   };
 
   return (
-    <form className="mb-4 space-y-3">
+    <form className="mb-4 space-y-3 max-w-screen-md" onSubmit={handleSubmit(onSubmit)}>
       <input
         type="text"
-        className="w-full border px-4 py-3 rounded-lg focus:outline-none focus:border-primary"
+        className="w-full border px-4 py-3 rounded-lg focus:outline-none focus:border-primary placeholder:opacity-50"
+        placeholder="タイトル"
+        id="title"
+        {...register('title', { required: true })}
+        required
       />
-      <Button
-        variant="contained"
-        className="w-full px-4 py-2 text-white bg-primary hover:bg-green-800"
-        disableElevation
-      >
-        Add Task
-      </Button>
+      <textarea
+        className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
+        placeholder="内容"
+        id="content"
+        {...register('content', { required: true })}
+        rows={5}
+      />
+      {loading ? (
+        <Loading />
+      ) : (
+        <Button
+          variant="contained"
+          className="w-full px-4 py-2 text-white bg-primary hover:bg-green-800"
+          disableElevation
+        >
+          Add Task
+        </Button>
+      )}
     </form>
   );
 };

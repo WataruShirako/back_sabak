@@ -123,36 +123,27 @@ export interface Database {
           customer_id: string | null
           email: string
           id: string
-          inserted_at: string | null
           introduce: string | null
-          is_complete: boolean | null
           name: string | null
-          priority: string | null
-          task: string | null
+          team: string | null
         }
         Insert: {
           avatar_url?: string | null
           customer_id?: string | null
           email: string
           id: string
-          inserted_at?: string | null
           introduce?: string | null
-          is_complete?: boolean | null
           name?: string | null
-          priority?: string | null
-          task?: string | null
+          team?: string | null
         }
         Update: {
           avatar_url?: string | null
           customer_id?: string | null
           email?: string
           id?: string
-          inserted_at?: string | null
           introduce?: string | null
-          is_complete?: boolean | null
           name?: string | null
-          priority?: string | null
-          task?: string | null
+          team?: string | null
         }
         Relationships: [
           {
@@ -208,27 +199,30 @@ export interface Database {
       }
       todos: {
         Row: {
+          content: string | null
           id: number
           inserted_at: string
           is_complete: boolean | null
           priority: string | null
-          task: string | null
+          title: string | null
           user_id: string
         }
         Insert: {
+          content?: string | null
           id?: number
           inserted_at?: string
           is_complete?: boolean | null
           priority?: string | null
-          task?: string | null
+          title?: string | null
           user_id: string
         }
         Update: {
+          content?: string | null
           id?: number
           inserted_at?: string
           is_complete?: boolean | null
           priority?: string | null
-          task?: string | null
+          title?: string | null
           user_id?: string
         }
         Relationships: [

@@ -39,6 +39,9 @@ const MemberDetailPage = async ({ params }: PageProps) => {
     .eq('profile_id', params.memberId)
     .order('created_at', { ascending: false });
 
+  // タスクを取得
+  const { data: taskData } = await supabase.from('todos').select('*');
+
   // メンバーシップを取得
   const { data: membershipData } = await supabase
     .from('memberships')
@@ -60,6 +63,7 @@ const MemberDetailPage = async ({ params }: PageProps) => {
   return (
     <MemberDetail
       posts={postData}
+      tasks={taskData}
       memberId={params.memberId}
       memberships={membershipData}
       profile={profileData}
