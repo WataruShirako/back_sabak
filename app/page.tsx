@@ -21,10 +21,10 @@ const Home = async () => {
   } = await supabase.auth.getSession();
 
   // 投稿を取得
-  const { data: postData } = await supabase.from('todos').select('*');
+  const { data: taskData } = await supabase.from('todos').select('*');
 
   // 投稿がない場合
-  if (!postData || postData.length === 0) {
+  if (!taskData || taskData.length === 0) {
     return <div className="text-center">投稿はありません</div>;
   }
 
@@ -34,28 +34,13 @@ const Home = async () => {
         {!session ? (
           <Landing />
         ) : (
-          // (
-          //   postData.map((post, index) => {
-          //     const isSubscriber =
-          //       post.membership_id === null || session.user.id === post.profile_id
-          //         ? true
-          //         : subscriptions!.some(
-          //             (item) =>
-          //               item.membership_id === post.membership_id &&
-          //               new Date(item.current_period_end!) >= new Date()
-          //           );
-
-          //     return (
-          //       <>
-          //         <PostItem key={index} post={post} isSubscriber={isSubscriber} />
-          //       </>
-          //     );
-          //   })
-          // )
-          <>
-            <TaskNew />
-            {/* <TaskItem task={} /> */}
-          </>
+          taskData.map((task, index) => {
+            return (
+              <>
+                <TaskItem key={index} task={task} />
+              </>
+            );
+          })
         )}
       </div>
     </>

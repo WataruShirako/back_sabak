@@ -25,7 +25,7 @@ const TaskItem = ({ task }: { task: PostWithTaskType }) => {
         <span className="text-gray-900">{task.title}</span>
         <p className="text-gray-900">{task.content}</p>
         <div>
-          <Link className="text-blue-900" href={`/tasks/${task.user_id}`}>
+          <Link className="text-blue-900" href={`/tasks/${task.id}`}>
             Details
           </Link>
         </div>
