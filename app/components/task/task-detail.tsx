@@ -17,8 +17,11 @@ import { useState } from 'react';
 import { Avatar, AvatarGroup, Button } from '@mui/material';
 type Schema = z.infer<typeof schema>;
 
+import EditIcon from '@mui/icons-material/Edit';
+
 // 入力データの検証ルールを定義
 const schema = z.object({
+  title: z.string().min(2, { message: '2文字以上入力する必要があります。' }),
   content: z.string().min(2, { message: '2文字以上入力する必要があります。' }),
 });
 
@@ -33,6 +36,9 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
   const [avatarUrl, setAvatarUrl] = useState('/default.png');
   const { user } = useStore();
 
+  // タイトルを編集する関数
+  const [isEditing, setIsEditing] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -40,12 +46,16 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
   } = useForm({
     // 初期値
     defaultValues: {
+      title: task.title ? task.title : '',
       content: task.content ? task.content : '',
-      introduce: user.introduce ? user.introduce : '',
     },
     // 入力値の検証
     resolver: zodResolver(schema),
   });
+
+  const editText = () => {
+    setIsEditing(true);
+  };
 
   // 送信
   const onSubmit: SubmitHandler<Schema> = async (data) => {
@@ -53,15 +63,16 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
     setMessage('');
 
     try {
-      let is_complete;
-      let prioroty;
-      let expired;
+      // let is_complete;
+      // let prioroty;
+      // let expired;
 
-      // プロフィールアップデート
+      // taskアップデート
       const { error: updateError } = await supabase
         .from('todos')
         .update({
           content: data.content,
+          title: data.title,
         })
         .eq('id', task.id);
 
@@ -71,7 +82,7 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
         return;
       }
 
-      setMessage('プロフィールを更新しました。');
+      setMessage('タスクを更新しました。');
     } catch (error) {
       setMessage('エラーが発生しました。' + error);
       return;
@@ -96,16 +107,35 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
         </div>
 
         <div className="mb-5 flex items-center space-x-1">
-          <div className="font-bold text-lg md:text-2xl">{task.title}</div>
+          <div className="font-bold text-lg md:text-2xl flex items-center gap-2">
+            {isEditing ? (
+              <input
+                type="text"
+                className="border rounded-lg w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
+                {...register('title', { required: true })}
+                required
+              />
+            ) : (
+              <p>{task.title}</p>
+            )}
+            <div onClick={editText} className="cursor-pointer">
+              <EditIcon />
+            </div>
+          </div>
         </div>
 
-        <div className="mb-5 flex items-center space-x-1">
-          <div>メンバー：</div>
+        <div className="mb-5 flex items-center gap-2">
+          <div className="flex items-center space-x-1">
+            <p>メンバー：</p>
+            <div>
+              <AvatarGroup>
+                <Avatar sx={{ width: 28, height: 28 }}>H</Avatar>
+                <Avatar sx={{ width: 28, height: 28 }}>H</Avatar>
+              </AvatarGroup>
+            </div>
+          </div>
           <div>
-            <AvatarGroup>
-              <Avatar sx={{ width: 28, height: 28 }}>H</Avatar>
-              <Avatar sx={{ width: 28, height: 28 }}>H</Avatar>
-            </AvatarGroup>
+            <EditIcon />
           </div>
         </div>
 
@@ -145,6 +175,8 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
           </div>
         </div>
       </form>
+      {/* メッセージ */}
+      {message && <div className="my-5 text-center !text-red-500 mb-5">{message}</div>}
     </div>
   );
 };
