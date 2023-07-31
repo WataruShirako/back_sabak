@@ -151,7 +151,7 @@ const MemberDetail = ({
       ) : tab === 'task' ? (
         <div>
           {tasks && tasks.length !== 0 ? (
-            <div>
+            <div className="flex mt-5 gap-2 flex-wrap">
               {tasks.map((task, index) => {
                 return <TaskItem key={index} task={task} />;
               })}

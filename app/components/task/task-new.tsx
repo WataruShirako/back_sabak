@@ -26,7 +26,6 @@ const TaskNew = () => {
   const supabase = createClientComponentClient<Database>();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-
   const { user } = useStore();
 
   const {
@@ -39,8 +38,6 @@ const TaskNew = () => {
     defaultValues: {
       title: '',
       content: '',
-      member: '',
-      category: '',
       expired: '',
     },
     // 入力値の検証
@@ -64,7 +61,7 @@ const TaskNew = () => {
         user_id: user.id,
         title: data.title,
         content: data.content,
-        expired: data.content,
+        expired: data.expired,
       });
 
       // エラーチェック
@@ -73,8 +70,9 @@ const TaskNew = () => {
         return;
       }
 
-      router.push('/member/' + user.id);
+      router.push('/');
     } catch (error) {
+      console.error(error);
       setMessage('エラーが発生しました。' + error);
       return;
     } finally {
@@ -85,34 +83,44 @@ const TaskNew = () => {
   };
 
   return (
-    <form className="mb-4 space-y-3 max-w-screen-md" onSubmit={handleSubmit(onSubmit)}>
-      <input
-        type="text"
-        className="w-full border px-4 py-3 rounded-lg focus:outline-none focus:border-primary placeholder:opacity-50"
-        placeholder="タイトル"
-        id="title"
-        {...register('title', { required: true })}
-        required
-      />
-      <textarea
-        className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
-        placeholder="内容"
-        id="content"
-        {...register('content', { required: true })}
-        rows={5}
-      />
-      {loading ? (
-        <Loading />
-      ) : (
-        <Button
-          variant="contained"
-          className="w-full px-4 py-2 text-white bg-primary hover:bg-green-800"
-          disableElevation
-        >
-          Add Task
-        </Button>
-      )}
-    </form>
+    <div>
+      <div className="text-center font-bold text-xl mb-10">新規タスク</div>
+      <form className="mb-4 space-y-3 max-w-screen-md mx-auto" onSubmit={handleSubmit(onSubmit)}>
+        <input
+          type="date"
+          className="w-full border px-4 py-3 rounded-lg focus:outline-none focus:border-primary placeholder:opacity-50"
+          placeholder="期限"
+          id="expired"
+          {...register('expired', { required: true })}
+        />
+        <input
+          type="text"
+          className="w-full border px-4 py-3 rounded-lg focus:outline-none focus:border-primary placeholder:opacity-50"
+          placeholder="タイトル"
+          id="title"
+          {...register('title', { required: true })}
+        />
+        <textarea
+          className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
+          placeholder="内容"
+          id="content"
+          {...register('content', { required: true })}
+          rows={5}
+        />
+        {loading ? (
+          <Loading />
+        ) : (
+          <Button
+            type="submit"
+            variant="contained"
+            className="w-full px-4 py-2 text-white bg-primary hover:bg-green-800"
+            disableElevation
+          >
+            タスクを追加する
+          </Button>
+        )}
+      </form>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { PostWithTaskType } from '@/app/components/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { v4 as uuidv4 } from 'uuid';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -17,12 +17,15 @@ import { useState } from 'react';
 import { Avatar, AvatarGroup, Button } from '@mui/material';
 type Schema = z.infer<typeof schema>;
 
+type FieldName = 'title' | 'member' | 'expired';
+
 import EditIcon from '@mui/icons-material/Edit';
 
 // 入力データの検証ルールを定義
 const schema = z.object({
   title: z.string().min(2, { message: '2文字以上入力する必要があります。' }),
   content: z.string().min(2, { message: '2文字以上入力する必要があります。' }),
+  expired: z.string().min(2, { message: '2文字以上入力する必要があります。' }),
 });
 
 // タスク詳細
@@ -36,9 +39,6 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
   const [avatarUrl, setAvatarUrl] = useState('/default.png');
   const { user } = useStore();
 
-  // タイトルを編集する関数
-  const [isEditing, setIsEditing] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -49,13 +49,24 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
       title: task.title ? task.title : '',
       content: task.content ? task.content : '',
       expired: task.expired ? task.expired : '',
+      priority: task.priority ? task.priority : '',
     },
     // 入力値の検証
     resolver: zodResolver(schema),
   });
 
-  const editText = () => {
-    setIsEditing(true);
+  // 中身を編集する関数
+  const [isEditing, setIsEditing] = useState({
+    title: false,
+    member: false,
+    expired: false,
+  });
+
+  const toggleEditing = (field: FieldName) => {
+    setIsEditing((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
   };
 
   // 送信
@@ -64,16 +75,13 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
     setMessage('');
 
     try {
-      // let is_complete;
-      // let prioroty;
-      // let expired;
-
       // taskアップデート
       const { error: updateError } = await supabase
         .from('todos')
         .update({
           content: data.content,
           title: data.title,
+          expired: data.expired,
         })
         .eq('id', task.id);
 
@@ -89,7 +97,37 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
       return;
     } finally {
       setLoading(false);
-      router.refresh();
+      router.replace('/');
+    }
+  };
+
+  // タスク完了
+  const onComplete: SubmitHandler<Schema> = async (data) => {
+    setLoading(true);
+    setMessage('');
+
+    try {
+      // taskアップデート
+      const { error: updateError } = await supabase
+        .from('todos')
+        .update({
+          is_complete: true,
+        })
+        .eq('id', task.id);
+
+      // エラーチェック
+      if (updateError) {
+        setMessage('エラーが発生しました。' + updateError.message);
+        return;
+      }
+
+      setMessage('タスクを完了しました！お疲れ様でした');
+    } catch (error) {
+      setMessage('エラーが発生しました。' + error);
+      return;
+    } finally {
+      setLoading(false);
+      router.replace('/');
     }
   };
 
@@ -100,16 +138,30 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
         <div>
           <div className="inline-flex items-center space-x-2 mb-5">
             <div>
-              <div className="text-sm text-gray-500">
-                期限：{format(new Date(task.expired), 'yyyy/MM/dd')}
+              <div className="text-sm text-gray-500 flex items-center gap-2">
+                {isEditing.expired ? (
+                  <input
+                    type="date"
+                    className="border rounded-lg w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
+                    defaultValue={format(new Date(task.expired), 'yyyy/MM/dd')}
+                    {...register('expired', { required: true })}
+                  />
+                ) : (
+                  <>
+                    <p>期限：{format(new Date(task.expired), 'yyyy/MM/dd')}</p>
+                    <div onClick={() => toggleEditing('expired')} className="cursor-pointer">
+                      <EditIcon className="opacity-20 hover:opacity-100 " />
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
         </div>
 
         <div className="mb-5 flex items-center space-x-1">
-          <div className="font-bold text-lg md:text-2xl flex items-center gap-2">
-            {isEditing ? (
+          <div className="font-bold text-lg md:text-2xl flex items-center gap-2 w-full">
+            {isEditing.title ? (
               <input
                 type="text"
                 className="border rounded-lg w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
@@ -119,24 +171,24 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
             ) : (
               <p>{task.title}</p>
             )}
-            <div onClick={editText} className="cursor-pointer">
-              <EditIcon />
+            <div onClick={() => toggleEditing('title')} className="cursor-pointer">
+              <EditIcon className="opacity-20 hover:opacity-100" />
             </div>
           </div>
         </div>
 
         <div className="mb-5 flex items-center gap-2">
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1 text-sm">
             <p>メンバー：</p>
             <div>
               <AvatarGroup>
-                <Avatar sx={{ width: 28, height: 28 }}>H</Avatar>
-                <Avatar sx={{ width: 28, height: 28 }}>H</Avatar>
+                <Avatar sx={{ width: 24, height: 24 }}>S</Avatar>
+                <Avatar sx={{ width: 24, height: 24 }}>H</Avatar>
               </AvatarGroup>
             </div>
           </div>
-          <div>
-            <EditIcon />
+          <div className="cursor-pointer">
+            <EditIcon className="opacity-20 hover:opacity-100" />
           </div>
         </div>
 
@@ -161,6 +213,7 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
                 更新
               </Button>
               <Button
+                onClick={handleSubmit(onComplete)}
                 variant="outlined"
                 type="submit"
                 className="font-bold border-primary focus:bg-primary focus:bg-opacity-20 hover:border-primary hover:bg-opacity-20 text-slate-100 w-full rounded-lg p-2 text-sm mt-4"

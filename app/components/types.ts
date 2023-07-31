@@ -12,7 +12,7 @@ type PostProfileType = {
 }
 
 type PostTaskType = {
-  id: number | null,
+  id: string | null,
   user_id: string | null,
   title: string | null,
   content: string | null,

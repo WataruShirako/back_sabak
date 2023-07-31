@@ -3,10 +3,9 @@ import { cookies } from 'next/headers';
 import type { Database } from '@/lib/database.types';
 import Landing from '@/app/components/Landing';
 import TaskItem from '@/app/components/task/task-item';
-import Link from 'next/link';
 
 // メインページ
-const Home = async () => {
+const TaskCompleted = async () => {
   const supabase = createServerComponentClient<Database>({
     cookies,
   });
@@ -17,11 +16,7 @@ const Home = async () => {
   } = await supabase.auth.getSession();
 
   // 投稿を取得
-  const { data: taskData } = await supabase
-    .from('todos')
-    .select('*')
-    .eq('is_complete', false)
-    .eq('user_id', session?.user.id);
+  const { data: taskData } = await supabase.from('todos').select('*').eq('is_complete', true);
 
   // 投稿がない場合
   if (!taskData || taskData.length === 0) {
@@ -39,14 +34,8 @@ const Home = async () => {
           })
         )}
       </div>
-      <Link
-        href="/tasks/new"
-        className="mt-5 max-w-screen-lg rounded-md m-auto flex !border-primary border hover:bg-green-900 hover:bg-opacity-5 w-full h-20 items-center justify-center cursor-pointer"
-      >
-        <span className="text-primary text-sm">＋タスクを新規作成</span>
-      </Link>
     </>
   );
 };
 
-export default Home;
+export default TaskCompleted;

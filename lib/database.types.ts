@@ -201,7 +201,7 @@ export interface Database {
         Row: {
           content: string | null
           expired: string
-          id: number
+          id: string | null
           inserted_at: string
           is_complete: boolean | null
           priority: number | null
@@ -211,7 +211,7 @@ export interface Database {
         Insert: {
           content?: string | null
           expired: string
-          id?: number
+          id?: string | null
           inserted_at?: string
           is_complete?: boolean | null
           priority?: number | null
@@ -221,7 +221,7 @@ export interface Database {
         Update: {
           content?: string | null
           expired?: string
-          id?: number
+          id?: string | null
           inserted_at?: string
           is_complete?: boolean | null
           priority?: number | null

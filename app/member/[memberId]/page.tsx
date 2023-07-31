@@ -9,7 +9,7 @@ type PageProps = {
   };
 };
 
-// メンバー詳細ページ(自分のページ)
+// メンバー詳細ページ(マイページ)
 const MemberDetailPage = async ({ params }: PageProps) => {
   const supabase = createServerComponentClient<Database>({
     cookies,

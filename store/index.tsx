@@ -37,7 +37,7 @@ const useStore = create<StateType>((set) => ({
     priority: 1,
     title: '',
     content: '',
-    id: 0,
+    id: '',
   },
 
   // taskアップデート
