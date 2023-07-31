@@ -16,6 +16,11 @@ const Home = async () => {
     data: { session },
   } = await supabase.auth.getSession();
 
+  // 未ログインはLPに遷移
+  if (!session) {
+    return <Landing />;
+  }
+
   // 投稿を取得
   const { data: taskData } = await supabase
     .from('todos')
@@ -23,16 +28,11 @@ const Home = async () => {
     .eq('is_complete', false)
     .eq('user_id', session?.user.id);
 
-  // 投稿がない場合
-  if (!taskData || taskData.length === 0) {
-    return <div className="text-center">タスクはありません</div>;
-  }
-
   return (
     <>
       <div className="max-w-screen-lg m-auto flex mt-5 gap-2 flex-wrap">
-        {!session ? (
-          <Landing />
+        {!taskData || taskData.length === 0 ? (
+          <div className="text-center">タスクはありません</div>
         ) : (
           taskData.map((task, index) => {
             return <TaskItem key={index} task={task} />;
