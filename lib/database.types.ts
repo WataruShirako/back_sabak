@@ -200,28 +200,31 @@ export interface Database {
       todos: {
         Row: {
           content: string | null
+          expired: string
           id: number
           inserted_at: string
           is_complete: boolean | null
-          priority: string | null
+          priority: number | null
           title: string | null
           user_id: string
         }
         Insert: {
           content?: string | null
+          expired: string
           id?: number
           inserted_at?: string
           is_complete?: boolean | null
-          priority?: string | null
+          priority?: number | null
           title?: string | null
           user_id: string
         }
         Update: {
           content?: string | null
+          expired?: string
           id?: number
           inserted_at?: string
           is_complete?: boolean | null
-          priority?: string | null
+          priority?: number | null
           title?: string | null
           user_id?: string
         }

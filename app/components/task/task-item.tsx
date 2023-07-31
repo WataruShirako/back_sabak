@@ -10,15 +10,6 @@ import Link from 'next/link';
 const TaskItem = ({ task }: { task: PostWithTaskType }) => {
   const [todos, setTodos] = useState<any>([]);
 
-  useEffect(() => {
-    const getTodos = async () => {
-      // const todos = await TaskDetailPage();
-      setTodos(todos);
-      console.log(todos);
-    };
-    getTodos();
-  }, []);
-
   return (
     <ul className="space-y-3">
       <li className="flex justify-between p-4 bg-white border-l-4">

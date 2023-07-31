@@ -13,12 +13,13 @@ type PostProfileType = {
 
 type PostTaskType = {
   id: number | null,
-  user_id: string| null,
-  title: string| null,
+  user_id: string | null,
+  title: string | null,
   content: string | null,
-  is_complete: boolean| null,
+  is_complete: boolean | null,
   inserted_at: string | null,
-  priority: string | null,
+  priority: number | null,
+  expired: string | null
 }
 
 type PostMembershipType = {
@@ -36,6 +37,8 @@ export type ProfileType = {
   introduce: string | null
   avatar_url: string | null
 }
+
+
 
 export type SubscriptionType = {
   membership_id: string
