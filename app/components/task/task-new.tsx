@@ -18,6 +18,7 @@ type Schema = z.infer<typeof schema>;
 const schema = z.object({
   title: z.string().min(2, { message: '2文字以上入力する必要があります。' }),
   content: z.string().min(2, { message: '2文字以上入力する必要があります。' }),
+  expired: z.string().min(2, { message: '2文字以上入力する必要があります。' }),
 });
 
 const TaskNew = () => {
@@ -40,6 +41,7 @@ const TaskNew = () => {
       content: '',
       member: '',
       category: '',
+      expired: '',
     },
     // 入力値の検証
     resolver: zodResolver(schema),
@@ -62,6 +64,7 @@ const TaskNew = () => {
         user_id: user.id,
         title: data.title,
         content: data.content,
+        expired: data.content,
       });
 
       // エラーチェック

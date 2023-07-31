@@ -48,6 +48,7 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
     defaultValues: {
       title: task.title ? task.title : '',
       content: task.content ? task.content : '',
+      expired: task.expired ? task.expired : '',
     },
     // 入力値の検証
     resolver: zodResolver(schema),
