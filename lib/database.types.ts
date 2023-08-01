@@ -197,11 +197,39 @@ export interface Database {
           }
         ]
       }
+      todo_users: {
+        Row: {
+          todo_id: string
+          user_id: string
+        }
+        Insert: {
+          todo_id: string
+          user_id: string
+        }
+        Update: {
+          todo_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "todo_users_todo_id_fkey"
+            columns: ["todo_id"]
+            referencedRelation: "todos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "todo_users_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       todos: {
         Row: {
           content: string | null
           expired: string
-          id: string | null
+          id: string
           inserted_at: string
           is_complete: boolean | null
           priority: number | null
@@ -211,7 +239,7 @@ export interface Database {
         Insert: {
           content?: string | null
           expired: string
-          id?: string | null
+          id?: string
           inserted_at?: string
           is_complete?: boolean | null
           priority?: number | null
@@ -221,7 +249,7 @@ export interface Database {
         Update: {
           content?: string | null
           expired?: string
-          id?: string | null
+          id?: string
           inserted_at?: string
           is_complete?: boolean | null
           priority?: number | null

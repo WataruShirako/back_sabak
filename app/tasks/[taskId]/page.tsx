@@ -4,6 +4,8 @@ import { SubscriptionType } from '@/app/components/types';
 import PostDetail from '@/app/components/post/post-detail';
 import TaskDetail from '@/app/components/task/task-detail';
 import type { Database } from '@/lib/database.types';
+import { useRouter } from 'next/navigation';
+import Landing from '@/app/components/Landing';
 
 type PageProps = {
   params: {
@@ -21,6 +23,11 @@ const TaskDetailPage = async ({ params }: PageProps) => {
   const {
     data: { session },
   } = await supabase.auth.getSession();
+
+  // ログインがない場合
+  if (!session) {
+    return <Landing />;
+  }
 
   // 投稿を取得
   const { data: taskData } = await supabase

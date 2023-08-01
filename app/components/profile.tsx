@@ -117,7 +117,7 @@ const Profile = () => {
       }
 
       // プロフィールアップデート
-      const { error: updateError } = await supabase
+      const { data: updatedData, error: updateError } = await supabase
         .from('profiles')
         .update({
           name: data.name,
@@ -132,13 +132,33 @@ const Profile = () => {
         return;
       }
 
+      if (updatedData) {
+        const data: any = updatedData;
+        // デフォルト値を設定
+        const updatedUser = {
+          id: data.id,
+          email: data.email,
+          name: data.name ?? '',
+          introduce: data.introduce ?? '',
+          avatar_url: data.avatar_url ?? '',
+          customer_id: data.customer_id ?? '',
+          team: data.team ?? '',
+        };
+
+        // Zustandのユーザーデータを更新
+        useStore.setState({ user: updatedUser });
+      } else {
+        setMessage('更新データが存在しません。');
+        return;
+      }
+
       setMessage('プロフィールを更新しました。');
     } catch (error) {
       setMessage('エラーが発生しました。' + error);
       return;
     } finally {
       setLoading(false);
-      router.refresh();
+      // router.refresh();
     }
   };
 

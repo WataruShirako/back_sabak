@@ -10,8 +10,8 @@ type StateType = {
   user: ProfileType;
   setUser: (payload: ProfileType) => void;
 
-  task: TaskType;
-  setTask: (payload: TaskType) => void;
+  todo: TaskType;
+  setTodo: (payload: TaskType) => void;
 };
 
 const useStore = create<StateType>((set) => ({
@@ -29,7 +29,7 @@ const useStore = create<StateType>((set) => ({
   setUser: (payload) => set({ user: payload }),
 
   // task初期値
-  task: {
+  todo: {
     inserted_at: '',
     expired: '',
     user_id: '',
@@ -41,7 +41,7 @@ const useStore = create<StateType>((set) => ({
   },
 
   // taskアップデート
-  setTask: (payload) => set({ task: payload }),
+  setTodo: (payload) => set({ todo: payload }),
 }));
 
 export default useStore;

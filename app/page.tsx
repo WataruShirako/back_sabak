@@ -26,11 +26,40 @@ const Home = async () => {
     .from('todos')
     .select('*')
     .eq('is_complete', false)
-    .eq('user_id', session?.user.id);
+    .eq('user_id', session?.user.id)
+    .order('expired', { ascending: true });
+
+  /// test.js
+  const schedule = require('node-schedule');
+
+  // const job = schedule.scheduleJob('10 * * * * *', function () {
+  //   var date = new Date();
+  //   // console.log('hh:mm:10に実行します' + date);
+  // });
+
+  // // 投稿の日付が3日を切ったら赤くする
+  // const currentDate = new Date(); // 現在の日付を取得
+  // // タスクの配列をマップして、それぞれのタスクに対して要素をレンダリング
+  // if (taskData) {
+  //   taskData.map((task) => {
+  //     const taskDate = new Date(task.expired); // タスクの期限日付を取得
+
+  //     // 期限と現在日付の差（ミリ秒）を計算し、それを日数に変換
+  //     const diffDays = Math.ceil(
+  //       (taskDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24)
+  //     );
+
+  //     // 期限が3日以内であれば、'red'クラスを割り当て、そうでなければ''を割り当て
+  //     const taskClass = diffDays <= 3 ? 'red' : '';
+
+  //     // タスク要素をレンダリング。classNameにtaskClassを指定
+  //     return;
+  //   });
+  // }
 
   return (
     <>
-      <div className="max-w-screen-lg m-auto flex mt-5 gap-2 flex-wrap">
+      <div className="max-w-screen-lg mx-auto flex mt-5 gap-2 flex-wrap">
         {!taskData || taskData.length === 0 ? (
           <div className="text-center">タスクはありません</div>
         ) : (

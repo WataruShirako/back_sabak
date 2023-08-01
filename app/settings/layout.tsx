@@ -58,6 +58,11 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
       icon: ArrowLeftOnRectangleIcon,
       href: '/settings/logout',
     },
+    {
+      name: '完了したタスク',
+      icon: ArrowLeftOnRectangleIcon,
+      href: '/settings/completed',
+    },
   ];
 
   return (

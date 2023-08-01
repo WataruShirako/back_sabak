@@ -13,7 +13,7 @@ import Loading from '@/app/loading';
 import * as z from 'zod';
 import type { Database } from '@/lib/database.types';
 import useStore from '@/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Avatar, AvatarGroup, Button } from '@mui/material';
 type Schema = z.infer<typeof schema>;
 
@@ -37,7 +37,7 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
   const [message, setMessage] = useState('');
   const [fileMessage, setFileMessage] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('/default.png');
-  const { user } = useStore();
+  const { todo } = useStore();
 
   const {
     register,
@@ -111,7 +111,7 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
       const { error: updateError } = await supabase
         .from('todos')
         .update({
-          is_complete: true,
+          is_complete: !task.is_complete,
         })
         .eq('id', task.id);
 
@@ -127,7 +127,8 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
       return;
     } finally {
       setLoading(false);
-      router.replace('/');
+      router.refresh();
+      router.push('/');
     }
   };
 
@@ -141,14 +142,14 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
               <div className="text-sm text-gray-500 flex items-center gap-2">
                 {isEditing.expired ? (
                   <input
-                    type="date"
+                    type="datetime-local"
                     className="border rounded-lg w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
-                    defaultValue={format(new Date(task.expired), 'yyyy/MM/dd')}
+                    defaultValue={format(new Date(task.expired), 'yyyy/MM/dd HH:mm')}
                     {...register('expired', { required: true })}
                   />
                 ) : (
                   <>
-                    <p>期限：{format(new Date(task.expired), 'yyyy/MM/dd')}</p>
+                    <p>期限：{format(new Date(task.expired), 'yyyy/MM/dd HH:mm')}</p>
                     <div onClick={() => toggleEditing('expired')} className="cursor-pointer">
                       <EditIcon className="opacity-20 hover:opacity-100 " />
                     </div>
@@ -212,14 +213,25 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
               >
                 更新
               </Button>
-              <Button
-                onClick={handleSubmit(onComplete)}
-                variant="outlined"
-                type="submit"
-                className="font-bold border-primary focus:bg-primary focus:bg-opacity-20 hover:border-primary hover:bg-opacity-20 text-slate-100 w-full rounded-lg p-2 text-sm mt-4"
-              >
-                このタスクを完了させる
-              </Button>
+              {task.is_complete ? (
+                <Button
+                  onClick={handleSubmit(onComplete)}
+                  variant="outlined"
+                  type="submit"
+                  className="font-bold border-primary focus:bg-primary focus:bg-opacity-20 hover:border-primary hover:bg-opacity-20 text-slate-100 w-full rounded-lg p-2 text-sm mt-4"
+                >
+                  このタスクを未完了にする
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleSubmit(onComplete)}
+                  variant="outlined"
+                  type="submit"
+                  className="font-bold border-primary focus:bg-primary focus:bg-opacity-20 hover:border-primary hover:bg-opacity-20 text-slate-100 w-full rounded-lg p-2 text-sm mt-4"
+                >
+                  このタスクを完了する
+                </Button>
+              )}
             </>
           )}
         </div>

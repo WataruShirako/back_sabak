@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
@@ -57,7 +57,7 @@ const TaskNew = () => {
       }
 
       // 新規投稿
-      const { error: insertError } = await supabase.from('todos').insert({
+      const { data: newTask, error: insertError } = await supabase.from('todos').insert({
         user_id: user.id,
         title: data.title,
         content: data.content,
@@ -70,7 +70,17 @@ const TaskNew = () => {
         return;
       }
 
-      router.push('/');
+      // // ユーザーを新規タスクに参加させる
+      // const { error: joinError } = await supabase.from('todo_users').insert({
+      //   todo_id: newTask.id,
+      //   user_id: user.id,
+      // });
+
+      // // エラーチェック
+      // if (joinError) {
+      //   setMessage('新規タスクへの参加にエラーが発生しました。' + joinError.message);
+      //   return;
+      // }
     } catch (error) {
       console.error(error);
       setMessage('エラーが発生しました。' + error);
@@ -79,6 +89,7 @@ const TaskNew = () => {
       setLoading(false);
       console.log('送信成功');
       router.refresh();
+      router.push('/');
     }
   };
 
@@ -87,7 +98,7 @@ const TaskNew = () => {
       <div className="text-center font-bold text-xl mb-10">新規タスク</div>
       <form className="mb-4 space-y-3 max-w-screen-md mx-auto" onSubmit={handleSubmit(onSubmit)}>
         <input
-          type="date"
+          type="datetime-local"
           className="w-full border px-4 py-3 rounded-lg focus:outline-none focus:border-primary placeholder:opacity-50"
           placeholder="期限"
           id="expired"

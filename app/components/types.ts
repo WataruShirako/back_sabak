@@ -11,6 +11,13 @@ type PostProfileType = {
   } | null
 }
 
+export type TaskProfileType = {
+  profiles: {
+    todo_id: string
+    user_id: string
+  }
+}
+
 type PostTaskType = {
   id: string | null,
   user_id: string | null,
@@ -38,10 +45,10 @@ export type ProfileType = {
   avatar_url: string | null
 }
 
-
-
 export type SubscriptionType = {
   membership_id: string
   current_period_end: string | null
 }
+
+
 
