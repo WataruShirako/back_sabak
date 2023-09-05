@@ -158,7 +158,7 @@ const Profile = () => {
       return;
     } finally {
       setLoading(false);
-      // router.refresh();
+      router.refresh();
     }
   };
 

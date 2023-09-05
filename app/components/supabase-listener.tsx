@@ -2,7 +2,7 @@
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import Navigation from './navigation';
+import Navigation from './header/header';
 import type { Database } from '@/lib/database.types';
 
 const SupabaseListener = async () => {

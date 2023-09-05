@@ -9,6 +9,10 @@ import type { Database } from '@/lib/database.types';
 import Button from '@mui/material/Button';
 import Logo from './logo';
 import { Backdrop } from '@mui/material';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { Check, ChevronDown } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
 type ProfileType = Database['public']['Tables']['profiles']['Row'];
 
 const Navigation = ({
@@ -42,8 +46,8 @@ const Navigation = ({
   };
 
   return (
-    <header className="border-scale-300 border-b backdrop-blur-sm transition-opacity fixed  w-full z-50">
-      <div className="p-5 container mx-auto flex items-center justify-between">
+    <header className="border-scale-300 border-b backdrop-blur-sm transition-opacity fixed  w-full z-50 h-12 flex items-center justify-between">
+      <div className="container mx-auto flex items-center justify-between">
         <Link href="/" className="font-bold text-xl cursor-pointer">
           <Logo />
         </Link>
@@ -51,31 +55,20 @@ const Navigation = ({
         <div className="text-sm font-bold">
           {session ? (
             <div className="flex items-center space-x-5">
-              <Link href="/settings/profile">
-                <div className="relative w-10 h-10">
-                  <Image
-                    src={profile && profile.avatar_url ? profile.avatar_url : '/default.png'}
-                    className="rounded-full object-cover"
-                    alt="avatar"
-                    fill
-                  />
+              <div
+                className={'flex items-center gap-1 cursor-pointer'}
+                onClick={(e) => e.preventDefault()}
+              >
+                <div className="relative">
+                  <Avatar className={'w-8 h-8'}>
+                    <AvatarImage
+                      src={profile && profile.avatar_url ? profile.avatar_url : '/default.png'}
+                      className="rounded-full object-cover"
+                      alt="avatar"
+                    />
+                  </Avatar>
                 </div>
-              </Link>
-              <div className="relative w-10 h-10 grid place-items-center rounded cursor-pointer bg-gray-600 dark:bg-gray-800">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
-                  />
-                </svg>
+                <ChevronDown className={'w-5 h-5 text-gray-700'} />
               </div>
             </div>
           ) : (

@@ -4,6 +4,7 @@ export type PostType = Database['public']['Tables']['posts']['Row']
 export type TaskType = Database['public']['Tables']['todos']['Row']
 export type MembershipType = Database['public']['Tables']['memberships']['Row']
 
+// 投稿
 type PostProfileType = {
   profiles: {
     name: string | null
@@ -11,7 +12,16 @@ type PostProfileType = {
   } | null
 }
 
-export type TaskProfileType = {
+type PostMembershipType = {
+  memberships: {
+    title: string
+  } | null
+}
+
+export type PostWithProfileType = PostType & PostProfileType  & PostMembershipType
+
+// タスク
+type TaskProfileType = {
   profiles: {
     todo_id: string
     user_id: string
@@ -29,13 +39,6 @@ type PostTaskType = {
   expired: string | null
 }
 
-type PostMembershipType = {
-  memberships: {
-    title: string
-  } | null
-}
-
-export type PostWithProfileType = PostType & PostProfileType  & PostMembershipType
 export type PostWithTaskType = TaskType & PostTaskType 
 
 export type ProfileType = {

@@ -26,7 +26,7 @@ const TaskNew = () => {
   const supabase = createClientComponentClient<Database>();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const { user } = useStore();
+  const { user, todo } = useStore();
 
   const {
     register,
@@ -57,7 +57,7 @@ const TaskNew = () => {
       }
 
       // 新規投稿
-      const { data: newTask, error: insertError } = await supabase.from('todos').insert({
+      const { error: insertError } = await supabase.from('todos').insert({
         user_id: user.id,
         title: data.title,
         content: data.content,
@@ -70,17 +70,17 @@ const TaskNew = () => {
         return;
       }
 
-      // // ユーザーを新規タスクに参加させる
-      // const { error: joinError } = await supabase.from('todo_users').insert({
-      //   todo_id: newTask.id,
-      //   user_id: user.id,
-      // });
+      // ユーザーを新規タスクに参加させる
+      const { error: joinError } = await supabase.from('todo_users').insert({
+        todo_id: todo.id,
+        user_id: user.id,
+      });
 
-      // // エラーチェック
-      // if (joinError) {
-      //   setMessage('新規タスクへの参加にエラーが発生しました。' + joinError.message);
-      //   return;
-      // }
+      // エラーチェック
+      if (joinError) {
+        setMessage('新規タスクへのメンバー参加にエラーが発生しました。' + joinError.message);
+        return;
+      }
     } catch (error) {
       console.error(error);
       setMessage('エラーが発生しました。' + error);

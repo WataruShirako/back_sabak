@@ -97,7 +97,8 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
       return;
     } finally {
       setLoading(false);
-      router.replace('/');
+      router.refresh();
+      router.push('/');
     }
   };
 
@@ -121,7 +122,13 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
         return;
       }
 
-      setMessage('タスクを完了しました！お疲れ様でした');
+      if (!task.is_complete) {
+        setMessage('タスクを完了しました！お疲れ様でした');
+      }
+
+      if (task.is_complete) {
+        setMessage('タスクを');
+      }
     } catch (error) {
       setMessage('エラーが発生しました。' + error);
       return;
@@ -144,16 +151,17 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
                   <input
                     type="datetime-local"
                     className="border rounded-lg w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
-                    defaultValue={format(new Date(task.expired), 'yyyy/MM/dd HH:mm')}
                     {...register('expired', { required: true })}
                   />
                 ) : (
-                  <>
-                    <p>期限：{format(new Date(task.expired), 'yyyy/MM/dd HH:mm')}</p>
-                    <div onClick={() => toggleEditing('expired')} className="cursor-pointer">
-                      <EditIcon className="opacity-20 hover:opacity-100 " />
-                    </div>
-                  </>
+                  !task.is_complete && (
+                    <>
+                      <p>期限：{format(new Date(task.expired), 'yyyy/MM/dd HH:mm')}</p>
+                      <div onClick={() => toggleEditing('expired')} className="cursor-pointer">
+                        <EditIcon className="opacity-20 hover:opacity-100 " />
+                      </div>
+                    </>
+                  )
                 )}
               </div>
             </div>
@@ -167,14 +175,17 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
                 type="text"
                 className="border rounded-lg w-full py-2 px-3 focus:outline-none focus:border-primary placeholder:opacity-50"
                 {...register('title', { required: true })}
-                required
               />
             ) : (
-              <p>{task.title}</p>
+              <>
+                <p>{task.title}</p>
+                {!task.is_complete && (
+                  <div onClick={() => toggleEditing('title')} className="cursor-pointer">
+                    <EditIcon className="opacity-20 hover:opacity-100" />
+                  </div>
+                )}
+              </>
             )}
-            <div onClick={() => toggleEditing('title')} className="cursor-pointer">
-              <EditIcon className="opacity-20 hover:opacity-100" />
-            </div>
           </div>
         </div>
 
@@ -183,14 +194,20 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
             <p>メンバー：</p>
             <div>
               <AvatarGroup>
-                <Avatar sx={{ width: 24, height: 24 }}>S</Avatar>
-                <Avatar sx={{ width: 24, height: 24 }}>H</Avatar>
+                <Avatar sx={{ width: 24, height: 24 }} className="text-base">
+                  S
+                </Avatar>
+                <Avatar sx={{ width: 24, height: 24 }} className="text-base">
+                  H
+                </Avatar>
               </AvatarGroup>
             </div>
           </div>
-          <div className="cursor-pointer">
-            <EditIcon className="opacity-20 hover:opacity-100" />
-          </div>
+          {!task.is_complete && (
+            <div className="cursor-pointer">
+              <EditIcon className="opacity-20 hover:opacity-100" />
+            </div>
+          )}
         </div>
 
         <textarea

@@ -1,16 +1,11 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
-import { Noto_Sans_JP } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import SupabaseListener from './components/supabase-listener';
+import { ThemeProvider } from '@/app/components/theme-provider';
+import Sidebar from '@/app/components/sidebar/sidebar';
 
-const montserrat = Montserrat({ subsets: ['latin'] });
-const notoSansJp = Noto_Sans_JP({ subsets: ['latin'] });
-
-import { StyledEngineProvider } from '@mui/material/styles';
-
-import Providers from './components/Providers';
-import ThemeButton from './components/ThemeButton';
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'sabak',
@@ -20,15 +15,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html suppressHydrationWarning>
-      <body className={`${notoSansJp.className} ${montserrat.className}`}>
-        <Providers>
-          <StyledEngineProvider injectFirst>
-            <div className="flex flex-col min-h-screen">
-              <SupabaseListener />
-              <main className="flex-1 p-5 pt-20 lg:px-0">{children}</main>
-            </div>
-          </StyledEngineProvider>
-        </Providers>
+      <body className={`${inter.className}`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="flex flex-col min-h-screen">
+            <SupabaseListener />
+            <main className="flex-1 pt-12 lg:px-0">
+              <>
+                <div className="col-span-2 text-sm space-y-1 font-medium text-gray-500 hidden lg:flex fixed flex-col border-r h-[calc(100vh_-_48px)] w-60 overflow-y-hidden z-50">
+                  <Sidebar />
+                </div>
+                <div className="lg:pl-60 flex flex-col relative">{children}</div>
+              </>
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
