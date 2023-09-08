@@ -1,9 +1,9 @@
 'use client';
 
-import { MembershipType } from '@/app/components/types';
+import { MembershipType } from '@/app/types/types';
 import Image from 'next/image';
 import Loading from '@/app/loading';
-import useStore from '@/store';
+import useStore from '@/store/userStore';
 
 // メンバーシップアイテム
 const MembershipItem = ({

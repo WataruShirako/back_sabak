@@ -1,6 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import { SubscriptionType } from '@/app/components/types';
+import { SubscriptionType } from '@/app/types/types';
 import PostDetail from '@/app/components/post/post-detail';
 import TaskDetail from '@/app/components/task/task-detail';
 import type { Database } from '@/lib/database.types';

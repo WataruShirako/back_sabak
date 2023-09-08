@@ -142,7 +142,7 @@ const Contaienr = () => {
   };
 
   return (
-    <div className="flex flex-row mx-auto">
+    <div className="flex flex-row mx-auto overflow-x-scroll">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCorners}

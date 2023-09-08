@@ -1,7 +1,7 @@
 'use client';
 
 import { format } from 'date-fns';
-import { PostWithProfileType } from '@/app/components/types';
+import { PostWithProfileType } from '@/app/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
 

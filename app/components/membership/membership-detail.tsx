@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { MembershipType } from '@/app/components/types';
+import { MembershipType } from '@/app/types/types';
 import axios from 'axios';
-import useStore from '@/store';
+import useStore from '@/store/userStore';
 import MembershipItem from '@/app/components/membership/membership-item';
 
 // メンバーシップ詳細

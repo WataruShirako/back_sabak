@@ -1,22 +1,12 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import useStore from '@/store';
 import ThemeButton from '@/app/components/ThemeButton';
-import { Box, CheckCircle2Icon, LucideMenu, MessageSquareIcon, Plus, Sprout } from 'lucide-react';
+import { Box, CheckCircle2Icon, MessageSquareIcon, Plus, Sprout } from 'lucide-react';
+import ProjectList from './client/ProjectList';
+import GetProject from './server/GetProject';
 
 const Sidebar = () => {
-  const pathname = usePathname();
-  const { user } = useStore();
-  const [userId, setUserId] = useState('');
+  const pathname = '';
 
-  useEffect(() => {
-    if (user.id) {
-      setUserId(user.id);
-    }
-  }, [user]);
   // ナビゲーション
   const subNavigation1 = [
     {
@@ -32,18 +22,7 @@ const Sidebar = () => {
     {
       name: 'メッセージ',
       icon: MessageSquareIcon,
-      href: userId ? `/member/${userId}` : '/',
-    },
-  ];
-
-  const project = [
-    {
-      name: 'Sabak開発',
-      href: '/project/',
-    },
-    {
-      name: '10%',
-      href: '/project/',
+      href: '/',
     },
   ];
 
@@ -68,32 +47,18 @@ const Sidebar = () => {
         ))}
       </div>
 
-      <details className={'p-[10px] border-t group'} open>
-        <summary
+      <div className={'p-[10px] border-t group overflow-y-scroll'}>
+        <h3
           className={
             'px-3 py-2 font-semibold list-none flex items-center justify-between cursor-pointer'
           }
         >
           プロジェクト
-          <Plus className={'w-4 h-5 text-gray-500 group-open:rotate-45 transition'} />
-        </summary>
-        {project.map((item, index) => (
-          <Link href={item.href} key={index}>
-            <div
-              className={`${
-                item.href == pathname && 'bg-gray-100 dark:bg-[#232323] text-gray-500'
-              } hover:bg-gray-100 dark:hover:bg-[#232323] px-3 py-2 rounded-sm`}
-            >
-              <Sprout
-                className={`${
-                  item.href == pathname && 'text-amber-300'
-                } inline-block w-4 h-4 mr-2 text-gray-500`}
-              />
-              {item.name}
-            </div>
-          </Link>
-        ))}
-      </details>
+        </h3>
+        <ProjectList>
+          <GetProject pathname={pathname} />
+        </ProjectList>
+      </div>
 
       <div className={'!mt-auto'}>
         <ThemeButton />

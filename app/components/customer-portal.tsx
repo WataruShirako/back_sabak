@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import Loading from '@/app/loading';
 import axios from 'axios';
-import useStore from '@/store';
+import useStore from '@/store/userStore';
 
 // カスタマーポータル
 const CustomerPortal = () => {

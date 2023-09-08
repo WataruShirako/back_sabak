@@ -34,6 +34,30 @@ export interface Database {
   }
   public: {
     Tables: {
+      m_projects: {
+        Row: {
+          created_at: string
+          project_color: string | null
+          project_content: Json | null
+          project_id: string
+          project_name: string | null
+        }
+        Insert: {
+          created_at?: string
+          project_color?: string | null
+          project_content?: Json | null
+          project_id?: string
+          project_name?: string | null
+        }
+        Update: {
+          created_at?: string
+          project_color?: string | null
+          project_content?: Json | null
+          project_id?: string
+          project_name?: string | null
+        }
+        Relationships: []
+      }
       memberships: {
         Row: {
           content: string
@@ -290,6 +314,7 @@ export interface Database {
           id: string
           name: string
           owner: string | null
+          owner_id: string | null
           public: boolean | null
           updated_at: string | null
         }
@@ -301,6 +326,7 @@ export interface Database {
           id: string
           name: string
           owner?: string | null
+          owner_id?: string | null
           public?: boolean | null
           updated_at?: string | null
         }
@@ -312,17 +338,11 @@ export interface Database {
           id?: string
           name?: string
           owner?: string | null
+          owner_id?: string | null
           public?: boolean | null
           updated_at?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "buckets_owner_fkey"
-            columns: ["owner"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
+        Relationships: []
       }
       migrations: {
         Row: {
@@ -354,6 +374,7 @@ export interface Database {
           metadata: Json | null
           name: string | null
           owner: string | null
+          owner_id: string | null
           path_tokens: string[] | null
           updated_at: string | null
           version: string | null
@@ -366,6 +387,7 @@ export interface Database {
           metadata?: Json | null
           name?: string | null
           owner?: string | null
+          owner_id?: string | null
           path_tokens?: string[] | null
           updated_at?: string | null
           version?: string | null
@@ -378,6 +400,7 @@ export interface Database {
           metadata?: Json | null
           name?: string | null
           owner?: string | null
+          owner_id?: string | null
           path_tokens?: string[] | null
           updated_at?: string | null
           version?: string | null
@@ -387,12 +410,6 @@ export interface Database {
             foreignKeyName: "objects_bucketId_fkey"
             columns: ["bucket_id"]
             referencedRelation: "buckets"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "objects_owner_fkey"
-            columns: ["owner"]
-            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]

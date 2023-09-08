@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import useStore from '@/store';
+import useStore from '@/store/userStore';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import type { Session } from '@supabase/auth-helpers-nextjs';

@@ -2,7 +2,7 @@
 
 import { format } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
-import { PostWithTaskType } from '../types';
+import { PostWithTaskType } from '../../types/types';
 import Link from 'next/link';
 import { ja } from 'date-fns/locale';
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar';

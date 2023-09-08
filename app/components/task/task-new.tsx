@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Loading from '@/app/loading';
-import useStore from '@/store';
+import useStore from '@/store/userStore';
 import axios from 'axios';
 import * as z from 'zod';
 import type { Database } from '@/lib/database.types';

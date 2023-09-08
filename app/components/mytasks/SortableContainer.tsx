@@ -17,7 +17,7 @@ const SortableContainer = ({
     id,
   });
   return (
-    <div className="w-[calc(33%-5px)]">
+    <div className={'w-64'}>
       <h3 className="text-base font-medium text-left px-3 flex items-center justify-between">
         {label}
         <div className={'flex items-center gap-2.5'}>

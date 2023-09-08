@@ -1,5 +1,5 @@
 const ProjectNew = () => {
-  return <div>プロジェクト新規作成</div>;
+  return <div>Enter</div>;
 };
 
 export default ProjectNew;

@@ -1,7 +1,7 @@
 'use client';
 
 import { format } from 'date-fns';
-import { PostWithTaskType } from '@/app/components/types';
+import { PostWithTaskType } from '@/app/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect, useRouter } from 'next/navigation';
@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Loading from '@/app/loading';
 import * as z from 'zod';
 import type { Database } from '@/lib/database.types';
-import useStore from '@/store';
+import useStore from '@/store/userStore';
 import { useEffect, useState } from 'react';
 import { Avatar, AvatarGroup, Button } from '@mui/material';
 type Schema = z.infer<typeof schema>;
@@ -20,6 +20,7 @@ type Schema = z.infer<typeof schema>;
 type FieldName = 'title' | 'member' | 'expired';
 
 import EditIcon from '@mui/icons-material/Edit';
+import userStore from '@/store/userStore';
 
 // 入力データの検証ルールを定義
 const schema = z.object({
@@ -37,7 +38,6 @@ const TaskDetail = ({ task }: { task: PostWithTaskType }) => {
   const [message, setMessage] = useState('');
   const [fileMessage, setFileMessage] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('/default.png');
-  const { todo } = useStore();
 
   const {
     register,

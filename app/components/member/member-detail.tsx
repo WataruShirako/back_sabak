@@ -8,12 +8,12 @@ import {
   SubscriptionType,
   MembershipType,
   PostWithTaskType,
-} from '@/app/components/types';
+} from '@/app/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import PostItem from '@/app/components/post/post-item';
 import MembershipDetail from '@/app/components/membership/membership-detail';
-import useStore from '@/store';
+import useStore from '@/store/userStore';
 import TaskItem from '../task/task-item';
 
 // メンバー詳細
