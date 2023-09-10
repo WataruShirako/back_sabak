@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { SubscriptionType } from '@/app/types/types';
 import MemberDetail from '@/app/components/member/member-detail';
 import type { Database } from '@/lib/database.types';
+
 type PageProps = {
   params: {
     memberId: string;

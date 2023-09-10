@@ -1,14 +1,16 @@
-import HeaderSecond from '@/app/components/header/header-second';
-import { Sprout } from 'lucide-react';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { SubscriptionType } from '@/app/types/types';
+import MemberDetail from '@/app/components/member/member-detail';
 import type { Database } from '@/lib/database.types';
+
 type PageProps = {
   params: {
-    projectId: string;
+    memberId: string;
   };
 };
 
+// メンバー詳細ページ(マイページ)
 const ProjectDetailPage = async ({ params }: PageProps) => {
   const supabase = createServerComponentClient<Database>({
     cookies,
@@ -19,20 +21,59 @@ const ProjectDetailPage = async ({ params }: PageProps) => {
     data: { session },
   } = await supabase.auth.getSession();
 
-  // 投稿を取得
-  const { data: projectData } = await supabase.from('m_projects').select('*');
+  // プロフィールを取得
+  const { data: profileData } = await supabase
+    .from('profiles')
+    .select('id, name, introduce, avatar_url');
+  // .eq('id')
+  // .single();
 
-  // 投稿がない場合
-  if (!projectData) {
-    return <div className="text-center">投稿はありません</div>;
+  const { data: profileDatas } = await supabase
+    .from('profiles')
+    .select('id, name, introduce, avatar_url')
+    .eq('name', 'wataru2');
+
+  // プロフィールがない場合
+  if (!profileData) {
+    return <div className="text-center">プロフィールがありません</div>;
+  }
+  // 投稿を取得
+  const { data: postData } = await supabase
+    .from('posts')
+    .select('*, profiles(name, avatar_url), memberships(title)')
+    .eq('profile_id', params.memberId)
+    .order('created_at', { ascending: false });
+
+  // タスクを取得
+  const { data: taskData } = await supabase.from('todos').select('*');
+
+  // メンバーシップを取得
+  const { data: membershipData } = await supabase
+    .from('memberships')
+    .select('*')
+    .eq('profile_id', params.memberId)
+    .order('created_at', { ascending: false });
+
+  // サブスクリプションを取得
+  let subscriptions: SubscriptionType[] | null = [];
+  // ログインしていない場合は空配列
+  if (session) {
+    const { data: subscriptionData } = await supabase
+      .from('subscriptions')
+      .select('membership_id, current_period_end')
+      .eq('profile_id', session.user.id);
+    subscriptions = subscriptionData;
   }
 
-  const sprout = <Sprout />;
-
   return (
-    <>
-      <div>プロジェクト詳細ページ</div>
-    </>
+    <MemberDetail
+      posts={postData}
+      tasks={taskData}
+      memberId={params.memberId}
+      memberships={membershipData}
+      // profile={profileData}
+      subscriptions={subscriptions}
+    />
   );
 };
 

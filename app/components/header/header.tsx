@@ -1,49 +1,35 @@
 'use client';
 
 import Link from 'next/link';
-import useStore from '@/store/userStore';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import type { Session } from '@supabase/auth-helpers-nextjs';
+import userStore from '@/store/userStore';
+import { useEffect } from 'react';
 import type { Database } from '@/lib/database.types';
 import Button from '@mui/material/Button';
 import Logo from './logo';
-import { Backdrop } from '@mui/material';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import { Check, ChevronDown } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-
+import { ChevronDown } from 'lucide-react';
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Session, getServerSession } from 'next-auth';
 type ProfileType = Database['public']['Tables']['profiles']['Row'];
 
-const Navigation = ({
-  session,
-  profile,
-}: {
-  session: Session | null;
+interface NavigationProps {
+  session: Session | null; // ここでsessionの型を定義
   profile: ProfileType | null;
-}) => {
-  const { setUser } = useStore();
+}
 
+const Navigation: React.FC<NavigationProps> = ({ session, profile }) => {
+  const { setUser } = userStore();
   // 状態管理にユーザー情報を保存
   useEffect(() => {
     setUser({
-      id: session ? session.user.id : '',
-      email: session ? session.user.email! : '',
+      id: session && profile ? profile.id : '',
+      email: session && profile ? profile.email : '',
       name: session && profile ? profile.name : '',
       introduce: session && profile ? profile.introduce : '',
       avatar_url: session && profile ? profile.avatar_url : '',
       customer_id: session && profile ? profile.customer_id : '',
       team: null,
     });
-  }, [session, setUser, profile]);
-
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  }, [profile, session, setUser]);
 
   return (
     <header className="border-scale-300 border-b backdrop-blur-sm transition-opacity fixed  w-full z-50 h-12 flex items-center justify-between">
@@ -62,7 +48,7 @@ const Navigation = ({
                 <div className="relative">
                   <Avatar className={'w-8 h-8'}>
                     <AvatarImage
-                      src={profile && profile.avatar_url ? profile.avatar_url : '/default.png'}
+                      src={session ? session.user?.image! : '/default.png'}
                       className="rounded-full object-cover"
                       alt="avatar"
                     />
@@ -73,16 +59,16 @@ const Navigation = ({
             </div>
           ) : (
             <div className="flex items-center space-x-5">
-              <Link href="/auth/login" className={'block'}>
+              <Link href="/" className={'block'}>
                 <Button
                   variant="contained"
                   disableElevation
-                  className="justify-center items-center space-x-4 text-center rounded-md transition-all dark:border-green-700 dark:hover:border-green-900 shadow-sm text-xs px-4 py-2 hidden text-white lg:block bg-primary hover:bg-green-900 hover:brightness-90"
+                  className="justify-center items-center space-x-4 text-center rounded-md transition-all dark:border-green-700 dark:hover:border-green-900 shadow-sm text-xs px-4 py-2 hidden text-white lg:block bg-primary bg-green-700 hover:bg-green-900 hover:brightness-90"
                 >
                   ログイン
                 </Button>
               </Link>
-              <Link href="/auth/signup">新規登録</Link>
+              <Link href="/">新規登録</Link>
             </div>
           )}
         </div>

@@ -37,6 +37,7 @@ export interface Database {
       m_projects: {
         Row: {
           created_at: string
+          project_admin_id: string | null
           project_color: string | null
           project_content: Json | null
           project_id: string
@@ -44,6 +45,7 @@ export interface Database {
         }
         Insert: {
           created_at?: string
+          project_admin_id?: string | null
           project_color?: string | null
           project_content?: Json | null
           project_id?: string
@@ -51,12 +53,20 @@ export interface Database {
         }
         Update: {
           created_at?: string
+          project_admin_id?: string | null
           project_color?: string | null
           project_content?: Json | null
           project_id?: string
           project_name?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "m_projects_project_admin_id_fkey"
+            columns: ["project_admin_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       memberships: {
         Row: {
@@ -257,6 +267,7 @@ export interface Database {
           inserted_at: string
           is_complete: boolean | null
           priority: number | null
+          status: string | null
           title: string | null
           user_id: string
         }
@@ -267,6 +278,7 @@ export interface Database {
           inserted_at?: string
           is_complete?: boolean | null
           priority?: number | null
+          status?: string | null
           title?: string | null
           user_id: string
         }
@@ -277,6 +289,7 @@ export interface Database {
           inserted_at?: string
           is_complete?: boolean | null
           priority?: number | null
+          status?: string | null
           title?: string | null
           user_id?: string
         }

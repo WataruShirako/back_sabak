@@ -22,14 +22,14 @@ const MemberDetail = ({
   tasks,
   memberId,
   memberships,
-  profile,
+  // profile,
   subscriptions,
 }: {
   posts: PostWithProfileType[] | null;
   tasks: PostWithTaskType[] | null;
   memberId: string;
   memberships: MembershipType[] | null;
-  profile: ProfileType;
+  // profile: ProfileType;
   subscriptions: SubscriptionType[] | null;
 }) => {
   const [tab, setTab] = useState('post');
@@ -47,7 +47,7 @@ const MemberDetail = ({
     <div className={'max-w-screen-lg m-auto p-5'}>
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center space-x-5">
-          <div className="relative w-20 h-20">
+          {/* <div className="relative w-20 h-20">
             <Image
               src={profile.avatar_url ? profile.avatar_url : '/default.png'}
               className="rounded-full object-cover"
@@ -57,7 +57,7 @@ const MemberDetail = ({
           </div>
           <div>
             <div className="font-bold text-xl">{profile.name}</div>
-          </div>
+          </div> */}
         </div>
         <div>
           <div
@@ -68,9 +68,7 @@ const MemberDetail = ({
           </div>
         </div>
       </div>
-      <div className="mb-5">
-        <div>{profile.introduce}</div>
-      </div>
+      <div className="mb-5">{/* <div>{profile.introduce}</div> */}</div>
 
       <div className="flex items-center justify-between border-b mb-5">
         {/* タブ */}
@@ -110,19 +108,17 @@ const MemberDetail = ({
           </div>
         </div>
 
-        {userId === profile.id && (
-          <div className="bg-primary text-slate-200 rounded-lg px-5 py-2 text-sm font-bold">
-            {tab === 'post' ? (
-              <Link href="/post/new">新規投稿</Link>
-            ) : tab === 'membership' ? (
-              <Link href="/membership/new">新規メンバーシップ</Link>
-            ) : tab === 'task' ? (
-              <Link href="/tasks/new">新規タスク</Link>
-            ) : (
-              <></>
-            )}
-          </div>
-        )}
+        <div className="bg-primary text-slate-200 rounded-lg px-5 py-2 text-sm font-bold">
+          {tab === 'post' ? (
+            <Link href="/post/new">新規投稿</Link>
+          ) : tab === 'membership' ? (
+            <Link href="/membership/new">新規メンバーシップ</Link>
+          ) : tab === 'task' ? (
+            <Link href="/tasks/new">新規タスク</Link>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
 
       {tab === 'post' ? (

@@ -1,4 +1,5 @@
-import { supabase } from '../client/supabase';
+import { supabase } from "../client/supabase-client";
+
 
 export const getAllRecordSelectColumns = async <T>(
   tableName: string,

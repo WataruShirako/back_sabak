@@ -10,6 +10,7 @@ import Loading from '@/app/loading';
 import * as z from 'zod';
 import type { Database } from '@/lib/database.types';
 import ThemeButton from './ThemeButton';
+import { supabase } from '../utils/client/supabase-client';
 type Schema = z.infer<typeof schema>;
 
 // 入力データの検証ルールを定義
@@ -22,7 +23,6 @@ const schema = z.object({
 // サインアップページ
 const Signup = () => {
   const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 

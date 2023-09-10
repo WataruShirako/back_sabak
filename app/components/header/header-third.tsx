@@ -20,7 +20,7 @@ const HeaderThird = () => {
     {
       icon: LineChart,
       name: 'Gantt',
-      href: '/project',
+      href: '/gantt',
     },
     {
       icon: Calendar,

@@ -1,4 +1,4 @@
-import { Project } from '@/app/hook/useProject';
+import { Project } from '@/app/hooks/useProject';
 import {
   getAllRecordSelectColumns,
   getAllRecordAllColumns,

@@ -17,6 +17,7 @@ const projectStore = create<StateType>((set) => ({
     project_color: '',
     project_content: '',
     created_at: '',
+    project_admin_id: '',
   },
   // taskアップデート
   setProject: (payload) => set({ project: payload }),
