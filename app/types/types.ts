@@ -1,8 +1,6 @@
 import type { Database } from '@/lib/database.types'
 
-export type PostType = Database['public']['Tables']['posts']['Row']
-export type TaskType = Database['public']['Tables']['todos']['Row']
-export type MembershipType = Database['public']['Tables']['memberships']['Row']
+export type MembershipType = Database['public']['Tables']['t_membership']['Row']
 
 // 投稿
 type PostProfileType = {
@@ -17,8 +15,6 @@ type PostMembershipType = {
     title: string
   } | null
 }
-
-export type PostWithProfileType = PostType & PostProfileType  & PostMembershipType
 
 // タスク
 type TaskProfileType = {
@@ -39,8 +35,6 @@ type PostTaskType = {
   expired: string | null
 }
 
-export type PostWithTaskType = TaskType & PostTaskType 
-
 export type ProfileType = {
   id: string
   name: string | null
@@ -49,7 +43,7 @@ export type ProfileType = {
 }
 
 export type SubscriptionType = {
-  membership_id: string
+  t_membership_id: string
   current_period_end: string | null
 }
 

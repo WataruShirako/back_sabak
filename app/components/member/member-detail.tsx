@@ -2,34 +2,19 @@
 
 import { useEffect, useState } from 'react';
 import { DocumentTextIcon, UserGroupIcon } from '@heroicons/react/24/outline';
-import {
-  PostWithProfileType,
-  ProfileType,
-  SubscriptionType,
-  MembershipType,
-  PostWithTaskType,
-} from '@/app/types/types';
+import { SubscriptionType, MembershipType } from '@/app/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import PostItem from '@/app/components/post/post-item';
 import MembershipDetail from '@/app/components/membership/membership-detail';
 import useStore from '@/store/userStore';
-import TaskItem from '../task/task-item';
 
 // メンバー詳細
 const MemberDetail = ({
-  posts,
-  tasks,
   memberId,
   memberships,
-  // profile,
-  subscriptions,
 }: {
-  posts: PostWithProfileType[] | null;
-  tasks: PostWithTaskType[] | null;
   memberId: string;
   memberships: MembershipType[] | null;
-  // profile: ProfileType;
   subscriptions: SubscriptionType[] | null;
 }) => {
   const [tab, setTab] = useState('post');
@@ -47,17 +32,7 @@ const MemberDetail = ({
     <div className={'max-w-screen-lg m-auto p-5'}>
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center space-x-5">
-          {/* <div className="relative w-20 h-20">
-            <Image
-              src={profile.avatar_url ? profile.avatar_url : '/default.png'}
-              className="rounded-full object-cover"
-              alt="avatar"
-              fill
-            />
-          </div>
-          <div>
-            <div className="font-bold text-xl">{profile.name}</div>
-          </div> */}
+          <p></p>
         </div>
         <div>
           <div
@@ -122,40 +97,11 @@ const MemberDetail = ({
       </div>
 
       {tab === 'post' ? (
-        <div>
-          {posts && posts.length !== 0 ? (
-            <div>
-              {posts.map((post, index) => {
-                const isSubscriber = true;
-                post.membership_id === null || userId === post.profile_id
-                  ? true
-                  : subscriptions!.some(
-                      (item) =>
-                        item.membership_id === post.membership_id &&
-                        new Date(item.current_period_end!) >= new Date()
-                    );
-
-                return <PostItem key={index} post={post} isSubscriber={isSubscriber} />;
-              })}
-            </div>
-          ) : (
-            <div className="text-center">投稿はありません</div>
-          )}
-        </div>
+        <div></div>
       ) : tab === 'membership' ? (
         <MembershipDetail memberships={memberships} memberId={memberId} />
       ) : tab === 'task' ? (
-        <div>
-          {tasks && tasks.length !== 0 ? (
-            <div className="flex mt-5 gap-2 flex-wrap">
-              {tasks.map((task, index) => {
-                return <TaskItem key={index} task={task} />;
-              })}
-            </div>
-          ) : (
-            <div className="text-center">投稿はありません</div>
-          )}
-        </div>
+        <div></div>
       ) : (
         <></>
       )}

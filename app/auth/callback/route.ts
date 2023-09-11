@@ -1,24 +1,21 @@
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
 
-import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server'
+import type { Database } from '@/lib/database.types'
 
-// サインアップ後のリダイレクト先
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
-  // URL取得
-  const requestUrl = new URL(request.url);
-
-  // 認証コード取得
-  const code = requestUrl.searchParams.get('code');
+  const requestUrl = new URL(request.url)
+  const code = requestUrl.searchParams.get('code')
 
   if (code) {
-    // auth.jsでSupabaseのクライアントインスタンスを作成
-    const supabase = await ;
-
-    // 認証コードをセッショントークンに交換
-    await supabase.
+    const supabase = createRouteHandlerClient<Database>({ cookies })
+    await supabase.auth.exchangeCodeForSession(code)
   }
 
-  return NextResponse.redirect(requestUrl.origin);
+  // URL to redirect to after sign in process completes
+  return NextResponse.redirect(requestUrl.origin)
 }
-

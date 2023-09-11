@@ -1,4 +1,4 @@
-import { getAllProjectAllColumns } from '@/app/utils/queries/project_queries';
+import { getAllProjectAllColumns } from '@/app/utils/supabase/queries/project_queries';
 import { Sprout } from 'lucide-react';
 import Link from 'next/link';
 

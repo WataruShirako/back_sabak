@@ -22,34 +22,16 @@ const ProjectDetailPage = async ({ params }: PageProps) => {
   } = await supabase.auth.getSession();
 
   // プロフィールを取得
-  const { data: profileData } = await supabase
-    .from('profiles')
-    .select('id, name, introduce, avatar_url');
-  // .eq('id')
-  // .single();
-
-  const { data: profileDatas } = await supabase
-    .from('profiles')
-    .select('id, name, introduce, avatar_url')
-    .eq('name', 'wataru2');
+  const { data: profileData } = await supabase.from('m_user').select('*');
 
   // プロフィールがない場合
   if (!profileData) {
     return <div className="text-center">プロフィールがありません</div>;
   }
-  // 投稿を取得
-  const { data: postData } = await supabase
-    .from('posts')
-    .select('*, profiles(name, avatar_url), memberships(title)')
-    .eq('profile_id', params.memberId)
-    .order('created_at', { ascending: false });
-
-  // タスクを取得
-  const { data: taskData } = await supabase.from('todos').select('*');
 
   // メンバーシップを取得
   const { data: membershipData } = await supabase
-    .from('memberships')
+    .from('t_memberships')
     .select('*')
     .eq('profile_id', params.memberId)
     .order('created_at', { ascending: false });
@@ -59,16 +41,14 @@ const ProjectDetailPage = async ({ params }: PageProps) => {
   // ログインしていない場合は空配列
   if (session) {
     const { data: subscriptionData } = await supabase
-      .from('subscriptions')
-      .select('membership_id, current_period_end')
+      .from('t_subscriptions')
+      .select('t_membership_id, current_period_end')
       .eq('profile_id', session.user.id);
     subscriptions = subscriptionData;
   }
 
   return (
     <MemberDetail
-      posts={postData}
-      tasks={taskData}
       memberId={params.memberId}
       memberships={membershipData}
       // profile={profileData}

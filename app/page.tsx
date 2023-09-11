@@ -1,22 +1,17 @@
-import { LoginButton, LogoutButton, ProfileButton, RegisterButton } from '@/app/components/button';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/authOptions';
-import { User } from '@/components/user.component';
-import { useSession } from 'next-auth/react';
+import HeaderSecond from './components/header/header-second';
+import Calender from './components/calender/Calender';
+import { getSupabaseSession } from './utils/supabase/controller/supabaseServer';
+import LoginPageComponent from './components/login/client/LoginPageComponent';
+import { LogoutButton } from './components/login/client/button/LogoutButton';
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-  // const { data: session } = useSession();
-  //
+  const session = await getSupabaseSession();
+  const userName = `${session?.user.user_metadata.full_name}さん、こんにちは`;
+
   return (
     <main>
-      <div>
-        <LoginButton />
-        <LogoutButton />
-        <h1>Server Session</h1>
-        <pre>{JSON.stringify(session)}</pre>
-        <User />
-      </div>
+      <HeaderSecond title={userName} />
+      <Calender />
     </main>
   );
 }

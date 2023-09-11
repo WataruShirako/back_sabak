@@ -11,7 +11,7 @@ import {
 import Link from 'next/link';
 
 const HeaderThird = () => {
-  const thirdLink = [
+  const ProjectHeaderThird = [
     {
       icon: FolderTree,
       name: 'WBS',
@@ -58,7 +58,6 @@ const HeaderThird = () => {
       href: '/project',
     },
   ];
-
   return (
     <>
       <div
@@ -67,7 +66,7 @@ const HeaderThird = () => {
         }
       >
         <div className={'text-[13px] font-medium flex items-center gap-5'}>
-          {thirdLink.map((item, index) => (
+          {ProjectHeaderThird.map((item, index) => (
             <Link
               href={item.href}
               key={index}
