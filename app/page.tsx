@@ -1,17 +1,17 @@
 import HeaderSecond from './components/header/header-second';
 import Calender from './components/calender/Calender';
-import { getSupabaseSession } from './utils/supabase/controller/supabaseServer';
-import LoginPageComponent from './components/login/client/LoginPageComponent';
-import { LogoutButton } from './components/login/client/button/LogoutButton';
+import { LoginButton } from './components/button';
+import { SupabaseListener } from './utils/supabase/controller/supabaseServer';
 
 export default async function Home() {
-  const session = await getSupabaseSession();
-  const userName = `${session?.user.user_metadata.full_name}さん、こんにちは`;
+  const session = await SupabaseListener();
+  console.log('セッション情報はこちら', session.session?.user);
 
   return (
     <main>
-      <HeaderSecond title={userName} />
+      <HeaderSecond title={session.session?.user.user_metadata.name} />
       <Calender />
+      <LoginButton />
     </main>
   );
 }

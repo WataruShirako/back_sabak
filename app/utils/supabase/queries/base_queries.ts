@@ -1,10 +1,10 @@
-import { supabaseSeverComponent } from '../controller/supabaseServer';
+import { supabaseServerComponent } from '../controller/supabaseServer';
 
 export const getAllRecordSelectColumns = async <T>(
   tableName: string,
   columnsName: string
 ): Promise<T[] | null> => {
-  const { data } = (await supabaseSeverComponent.from(tableName).select(columnsName)) as {
+  const { data } = (await supabaseServerComponent.from(tableName).select(columnsName)) as {
     data: T[];
   };
   // console.log(data);
@@ -13,7 +13,7 @@ export const getAllRecordSelectColumns = async <T>(
 export const getAllRecordAllColumns = async <T>(
   tableName: string
 ): Promise<T[] | null> => {
-  const { data } = (await supabaseSeverComponent.from(tableName).select()) as {
+  const { data } = (await supabaseServerComponent.from(tableName).select()) as {
     data: T[];
   };
   // console.log(data);
@@ -25,7 +25,7 @@ export const getRecordAllColumnsById = async <T>(
   pkColName: string,
   pkValue: string
 ): Promise<T[] | null> => {
-  const { data } = (await supabaseSeverComponent
+  const { data } = (await supabaseServerComponent
     .from(tableName)
     .select()
     .eq(pkColName, pkValue)) as {

@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { supabaseSignOut } from '../utils/supabase/controller/supabaseServer';
 import {
   clientSignInWithOAuthGoogle,
   clientSignOut,
 } from '../utils/supabase/controller/supabaseClient';
-import { supabaseSignOut } from '../utils/supabase/controller/supabaseServer';
+import useAuth from '../hooks/useAuth';
 
 export const LoginButton = () => {
   return (
@@ -24,8 +25,9 @@ export const RegisterButton = () => {
 };
 
 export const LogoutButton = () => {
+  const signout = useAuth();
   return (
-    <button style={{ marginRight: 10 }} onClick={() => clientSignOut()}>
+    <button style={{ marginRight: 10 }} onClick={() => signout}>
       Sign Out
     </button>
   );

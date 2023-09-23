@@ -17,8 +17,6 @@ const userStore = create<StateType>((set) => ({
     name: '',
     introduce: '',
     avatar_url: '',
-    customer_id: '',
-    team: '',
   },
   // userアップデート
   setUser: (payload) => set({ user: payload }),

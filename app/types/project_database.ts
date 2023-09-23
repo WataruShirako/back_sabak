@@ -1,6 +1,6 @@
 import type { Database } from '@/lib/database.types'
 
-export type ProjectType = Database['public']['Tables']['m_projects']['Row']
+export type ProjectType = Database['public']['Tables']['m_project']['Row']
 
 export type ProjectColumnsType =   
     | 'project_id'

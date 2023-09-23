@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/app/providers/themeProvider';
 import Sidebar from '@/app/components/sidebar/sidebar';
-import Navigation from './components/header/header';
+import GetHeader from './components/header/server/GetHeader';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html suppressHydrationWarning>
       <body className={`${inter.className}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navigation />
+          <GetHeader />
           <div className="flex flex-col min-h-screen">
             <main className="flex-1 pt-12 lg:px-0">
               <>

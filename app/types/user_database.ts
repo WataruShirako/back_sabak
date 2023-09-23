@@ -1,6 +1,6 @@
 import type { Database } from '@/lib/database.types'
 
-export type ProfileType = Database['public']['Tables']['profiles']['Row']
+export type ProfileType = Database['public']['Tables']['m_user']['Row']
 
 export type ProfileColumnsType =   
     | 'Profile_id'
